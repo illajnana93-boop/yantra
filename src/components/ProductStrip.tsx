@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
 
 const items = [
     { icon: '🪬', label: '11g Yantra', sub: '₹2,100 · Cash on Delivery' },

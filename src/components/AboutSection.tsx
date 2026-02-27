@@ -44,7 +44,7 @@ const AboutSection = () => {
                         { title: 'Hand-Crafted', icon: '🎨' },
                         { title: 'Divine Shield', icon: '🛡️' },
                         { title: 'Sacred Energy', icon: '⚡' }
-                    ].map((item, idx) => (
+                    ].map((item) => (
                         <div key={item.title} className="flex flex-col items-center gap-4 group">
                             <div className="relative w-16 h-16 rounded-full border border-[#D4AF37]/20 flex items-center justify-center bg-[#081629]/50 group-hover:border-[#D4AF37]/60 transition-all duration-500 shadow-ambient-gold overflow-hidden">
                                 <div className="absolute inset-0 bg-gold-gradient opacity-0 group-hover:opacity-10 transition-opacity"></div>
