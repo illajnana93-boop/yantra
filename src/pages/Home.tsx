@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
+import DivineSection from '../components/DivineSection';
 import AboutSection from '../components/AboutSection';
 import UseSection from '../components/UseSection';
 import ProductSection from '../components/ProductSection';
@@ -12,6 +13,7 @@ const Home = () => {
         <div className="relative">
             <Navbar />
             <Hero />
+            <DivineSection />
             <AboutSection />
             <UseSection />
             <ProductSection />
