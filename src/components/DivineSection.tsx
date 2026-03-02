@@ -41,7 +41,7 @@ const DivineSection: React.FC = () => {
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1, ease: "easeOut" }}
+                    transition={{ duration: 1, ease: "easeOut" as const }}
                 >
                     <h2 className="text-3xl md:text-5xl font-serif text-gold-gradient mb-4 tracking-wide text-glow px-2">
                         Witness the Divine Absorption

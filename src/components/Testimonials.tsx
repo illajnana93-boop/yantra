@@ -59,7 +59,7 @@ const Testimonials = () => {
                             initial={{ opacity: 0, x: 30, filter: "blur(5px)" }}
                             animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                             exit={{ opacity: 0, x: -30, filter: "blur(5px)" }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            transition={{ duration: 0.8, ease: "easeOut" as const }}
                             className="glass-card p-8 md:p-16 shadow-2xl w-full relative overflow-hidden group interactive"
                         >
                             <div className="relative z-10 flex flex-col items-center">

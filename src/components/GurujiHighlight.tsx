@@ -25,7 +25,7 @@ const GurujiHighlight = () => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1, ease: "easeOut" }}
+                    transition={{ duration: 1, ease: "easeOut" as const }}
                     className="relative w-full md:w-1/2"
                 >
                     <div className="relative z-10 w-full aspect-video bg-[#081629] rounded-[1.5rem] md:rounded-[2.5rem] border border-[#D4AF37]/30 shadow-2xl overflow-hidden group interactive">

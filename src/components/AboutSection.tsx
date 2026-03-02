@@ -18,9 +18,9 @@ const AboutSection = () => {
             opacity: 1,
             y: 0,
             scale: 1,
-            transition: { duration: 0.6, ease: "easeOut" }
+            transition: { duration: 0.6, ease: "easeOut" as const }
         }
-    };
+    } as const;
 
     return (
         <section id="about" className="bg-[#0A1F3C] relative overflow-hidden py-12 md:py-20 border-y border-[#D4AF37]/10">

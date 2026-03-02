@@ -9,7 +9,7 @@ const Footer = () => {
                     scale: [1, 1.1, 1],
                     opacity: [0.03, 0.06, 0.03],
                 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" as const }}
                 className="absolute top-0 right-0 pointer-events-none transform translate-x-1/4 -translate-y-1/4"
             >
                 <div className="w-[600px] h-[600px] border-[15px] border-[#D4AF37] rounded-full blur-[2px]"></div>

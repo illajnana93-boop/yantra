@@ -27,16 +27,16 @@ const Hero = () => {
                 delayChildren: 0.3
             }
         }
-    };
+    } as const;
 
     const itemVariants = {
         hidden: { opacity: 0, y: 15 },
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, ease: "easeOut" }
+            transition: { duration: 0.6, ease: "easeOut" as const }
         }
-    };
+    } as const;
 
     const scrollToAvatar = () => {
         const element = document.getElementById('guruji-darshan');

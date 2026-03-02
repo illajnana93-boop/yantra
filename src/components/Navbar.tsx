@@ -92,7 +92,7 @@ const Navbar = () => {
                         <motion.circle
                             cx="50" cy="50" r="30" stroke="#D4AF37" strokeWidth="2"
                             animate={{ strokeDasharray: ["0, 200", "200, 0"] }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                            transition={{ duration: 3, repeat: Infinity, ease: "linear" as const }}
                         />
                         <circle cx="50" cy="50" r="10" fill="#D4AF37" />
                     </svg>
