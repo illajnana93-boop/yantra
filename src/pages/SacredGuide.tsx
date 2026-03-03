@@ -66,7 +66,7 @@ const SacredGuide = () => {
                     <div className="flex flex-col gap-8 md:gap-10 order-1 md:order-2 text-center md:text-left">
                         <div className="space-y-4">
                             <h2 className="text-3xl md:text-5xl font-serif text-white tracking-tight">Sacred Usage</h2>
-                            <p className="text-[#F5D76E] text-lg md:text-xl font-serif italic max-w-xl font-light mx-auto md:mx-0">
+                            <p className="text-stone-200 text-lg md:text-2xl font-serif italic font-light max-w-xl mx-auto md:mx-0">
                                 To unlock the divine frequencies of the Yantra, follow these authentic Vedic protocols.
                             </p>
                         </div>
@@ -88,7 +88,7 @@ const SacredGuide = () => {
                                     <span className="text-3xl md:text-4xl filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)]">{item.icon}</span>
                                     <div>
                                         <h3 className="text-white font-bold text-lg md:text-xl mb-1 md:mb-2 group-hover:text-gold-gradient transition-all">{item.title}</h3>
-                                        <p className="text-[#F8F5F0]/70 text-sm md:text-base leading-relaxed font-light font-serif italic">{item.desc}</p>
+                                        <p className="text-stone-200 text-lg md:text-xl leading-relaxed tracking-wide font-serif italic font-light">{item.desc}</p>
                                     </div>
                                 </motion.div>
                             ))}
@@ -114,7 +114,7 @@ const SacredGuide = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                         {[
                             { title: "Lifetime Grace", desc: "Eternal blessings for your generation.", img: "/image copy 2.png" },
-                            { title: "Temple Legacy", desc: "Contribute to a living spiritual monument.", img: "/image copy 3.png" },
+                            { title: "Temple Legacy", desc: "Contribute to a living spiritual monument.", img: "/image copy 8.png" },
                             { title: "Ritualized Delivery", desc: "Handled with the utmost sanctity.", img: "/image copy 6.png" },
                             { title: "Sacred Integrity", desc: "Purity in every gram of gold.", img: "/image.png" }
                         ].map((card, idx) => (

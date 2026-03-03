@@ -3,23 +3,32 @@ import { useState, useRef } from 'react';
 
 const GurujiHighlight = () => {
     const [isPlaying, setIsPlaying] = useState(false);
+    const [isMuted, setIsMuted] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
 
     const handleTalkToGuruji = () => {
         if (videoRef.current) {
             setIsPlaying(true);
+            setIsMuted(false);
             videoRef.current.muted = false;
             videoRef.current.currentTime = 0;
             videoRef.current.play().catch(err => console.error("Playback failed:", err));
         }
     };
 
+    const toggleMute = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = !videoRef.current.muted;
+            setIsMuted(videoRef.current.muted);
+        }
+    };
+
     return (
-        <section id="guruji-darshan" className="bg-[#0A1F3C] relative overflow-hidden py-16 md:py-32 border-t border-[#D4AF37]/20">
+        <section id="guruji-darshan" className="bg-[#0A1F3C] relative overflow-hidden py-20 md:py-24 border-t border-[#D4AF37]/20">
             {/* Ambient Lighting Shadow */}
             <div className="absolute top-[-10%] right-[-10%] w-[80%] md:w-[60%] h-[60%] bg-[#D4AF37]/5 rounded-full blur-[100px] md:blur-[180px] pointer-events-none"></div>
 
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16 relative z-10 px-6 md:px-8">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-10 relative z-10 px-6 md:px-8">
                 {/* Left: Video Stage */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -35,6 +44,7 @@ const GurujiHighlight = () => {
                                 src="/Avatar_IV_Video.mp4"
                                 className="w-[105%] h-[105%] object-cover absolute -top-[2.5%] -left-[2.5%]"
                                 playsInline
+                                muted={isMuted}
                                 onEnded={() => setIsPlaying(false)}
                             />
 
@@ -48,6 +58,29 @@ const GurujiHighlight = () => {
                                         <div className="w-0 h-0 border-t-[8px] md:border-t-[12px] border-t-transparent border-l-[15px] md:border-l-[20px] border-l-[#0A1F3C] border-b-[8px] md:border-b-[12px] border-b-transparent ml-1.5 md:ml-2" />
                                     </motion.div>
                                 </div>
+                            )}
+
+                            {/* Mute/Unmute Toggle Button - Only when playing */}
+                            {isPlaying && (
+                                <motion.button
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    onClick={toggleMute}
+                                    className="absolute bottom-6 right-6 z-20 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-[#D4AF37]/30 flex items-center justify-center group interactive"
+                                >
+                                    {isMuted ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#F5D76E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#F5D76E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                                        </svg>
+                                    )}
+                                </motion.button>
                             )}
 
                             <div className="absolute bottom-0 left-0 w-32 h-16 bg-gradient-to-tr from-[#081629] to-transparent pointer-events-none"></div>
@@ -72,7 +105,7 @@ const GurujiHighlight = () => {
                         <div className="w-16 h-[1px] bg-gold-gradient md:mx-0 mx-auto opacity-50 mt-4"></div>
                     </div>
 
-                    <p className="text-[#F8F5F0] text-lg md:text-2xl leading-relaxed font-serif italic font-light tracking-wide opacity-90 px-4 md:px-0">
+                    <p className="text-[#F8F5F0] text-lg md:text-2xl leading-relaxed font-serif italic font-light tracking-wide px-4 md:px-0">
                         Receive spiritual guidance directly from Guruji. Activate the video to experience a personal transmission of grace.
                     </p>
 

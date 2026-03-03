@@ -36,34 +36,19 @@ const DivineSection: React.FC = () => {
             </div>
 
             <div className="relative max-w-6xl mx-auto text-center z-10">
-                {/* Heading */}
-                <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, ease: "easeOut" as const }}
-                >
-                    <h2 className="text-3xl md:text-5xl font-serif text-gold-gradient mb-4 tracking-wide text-glow px-2">
-                        Witness the Divine Absorption
-                    </h2>
 
-                    {/* Subtext */}
-                    <p className="text-base md:text-lg text-stone-400 font-light italic mb-10 md:mb-12 tracking-[0.15em] md:tracking-[0.2em] uppercase max-w-2xl mx-auto opacity-80 px-4">
-                        A sacred offering. A timeless response.
-                    </p>
-                </motion.div>
-
-                {/* Video Container */}
-                <motion.div
+{/* 
+                {/* Video Frame */}
+                {/* <motion.div
                     initial={{ opacity: 0, scale: 0.98 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.2 }}
                     className="relative group max-w-4xl mx-auto"
                 >
-                    <div className="absolute -inset-1 bg-gold-400/5 rounded-[2rem] md:rounded-3xl blur-md opacity-0 group-hover:opacity-100 transition duration-1000" />
+                    <div className="absolute -inset-1 bg-gold-400/10 rounded-[2rem] md:rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-1000" />
 
-                    <div className="relative aspect-video rounded-2xl md:rounded-3xl overflow-hidden border border-gold-500/20 shadow-2xl bg-[#050c18]">
+                    <div className="relative aspect-video rounded-2xl md:rounded-3xl overflow-hidden border border-gold-500/30 shadow-[0_0_50px_rgba(212,175,55,0.15)] bg-[#050c18] group-hover:border-gold-500/60 transition-all duration-700">
                         <video
                             className="w-full h-full object-cover"
                             autoPlay
@@ -73,9 +58,10 @@ const DivineSection: React.FC = () => {
                         >
                             <source src="/vid.mp4" type="video/mp4" />
                         </video>
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30 pointer-events-none" />
+                        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
                     </div>
-                </motion.div>
+                </motion.div> */}
             </div>
 
             <style dangerouslySetInnerHTML={{

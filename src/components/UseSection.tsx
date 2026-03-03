@@ -20,7 +20,7 @@ const uses = [
 
 const UseSection = () => {
     return (
-        <section className="bg-[#081629] py-16 md:py-20 overflow-hidden border-y border-[#D4AF37]/20 relative">
+        <section className="bg-[#081629] pt-20 pb-8 md:pt-24 md:pb-12 overflow-hidden border-y border-[#D4AF37]/20 relative">
             {/* Ambient Lighting Background */}
             <div className="absolute inset-0 bg-ambient-glow opacity-10"></div>
 
@@ -39,7 +39,7 @@ const UseSection = () => {
                 <div className="w-16 md:w-20 h-[1px] bg-gold-gradient mx-auto mt-6 opacity-30 shadow-ambient-gold"></div>
             </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto px-6 md:px-10 relative z-10">
+            <div className="grid md:grid-cols-3 gap-8 md:gap-10 max-w-6xl mx-auto px-6 md:px-10 relative z-10">
                 {uses.map((use, i) => (
                     <motion.div
                         key={use.title}
@@ -57,7 +57,7 @@ const UseSection = () => {
                         <h3 className="text-white text-xl md:text-2xl font-serif mb-4 tracking-wide group-hover:text-gold-400 transition-colors">
                             {use.title}
                         </h3>
-                        <p className="text-[#F8F5F0] text-sm md:text-base leading-relaxed font-serif italic font-light opacity-80 group-hover:opacity-100 transition-opacity">
+                        <p className="text-stone-200 text-lg md:text-xl leading-relaxed tracking-wide font-serif italic font-light">
                             {use.desc}
                         </p>
 

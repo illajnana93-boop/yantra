@@ -36,7 +36,7 @@ const Testimonials = () => {
     }, []);
 
     return (
-        <section className="relative py-16 md:py-32 overflow-hidden bg-[#0A1F3C] border-t border-[#D4AF37]/10">
+        <section className="relative py-20 md:py-24 overflow-hidden bg-[#0A1F3C] border-t border-[#D4AF37]/10">
             {/* Soft Gold Ambient Lighting */}
             <div className="absolute inset-0 bg-ambient-glow opacity-30"></div>
 

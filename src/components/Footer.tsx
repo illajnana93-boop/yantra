@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 const Footer = () => {
     return (
-        <footer id="contact" className="bg-[#081629] text-[#F8F5F0] pt-28 pb-12 border-t border-[#D4AF37]/20 relative overflow-hidden">
+        <footer id="contact" className="bg-[#081629] text-[#F8F5F0] pt-20 pb-12 border-t border-[#D4AF37]/20 relative overflow-hidden">
             {/* Animated Ambient Gold Halo */}
             <motion.div
                 animate={{
@@ -16,7 +16,7 @@ const Footer = () => {
             </motion.div>
 
             <div className="max-w-7xl mx-auto px-10 md:px-16 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
                     {/* Brand Section */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

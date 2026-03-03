@@ -12,76 +12,88 @@ const AboutSection = () => {
         }
     };
 
-    const cardVariants = {
-        hidden: { opacity: 0, y: 20, scale: 0.98 },
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
         visible: {
             opacity: 1,
             y: 0,
-            scale: 1,
             transition: { duration: 0.6, ease: "easeOut" as const }
         }
     } as const;
 
     return (
-        <section id="about" className="bg-[#0A1F3C] relative overflow-hidden py-12 md:py-20 border-y border-[#D4AF37]/10">
+        <section id="about" className="bg-[#081629] relative overflow-hidden py-20 md:py-24 border-y border-[#D4AF37]/10">
             {/* Ambient Lighting Effects */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-ambient-glow pointer-events-none opacity-30"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-ambient-glow pointer-events-none opacity-20"></div>
 
-            <div className="max-w-6xl mx-auto flex flex-col items-center gap-8 md:gap-10 relative z-10 px-6 md:px-8 text-center">
+            <div className="max-w-7xl mx-auto flex flex-col items-center gap-12 relative z-10 px-6 lg:px-12 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.8 }}
                 >
-                    <div className="flex flex-col items-center gap-2 mb-3 md:mb-4">
+                    <div className="flex flex-col items-center gap-2 mb-4 md:mb-5">
                         <span className="text-xl md:text-2xl filter drop-shadow-[0_0_10px_rgba(212,175,55,0.4)]">🕉️</span>
-                        <p className="text-gold-gradient text-[8px] md:text-[9px] uppercase font-bold tracking-[0.3em] md:tracking-[0.4em]">The Sacred Essence</p>
+                        <p className="text-gold-gradient text-[10px] md:text-[11px] uppercase font-bold tracking-[0.5em]">The Sacred Essence</p>
                     </div>
 
-                    <h2 className="text-3xl md:text-5xl font-serif text-white mb-4 md:mb-6 tracking-tight text-glow px-4">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white mb-6 md:mb-8 tracking-tight text-glow px-4">
                         What is <span className="text-gold-gradient italic">Sri Shyam Yantra?</span>
                     </h2>
 
-                    <div className="w-12 md:w-16 h-[1px] bg-gold-gradient mx-auto mb-6 md:mb-8 opacity-40"></div>
+                    <div className="w-20 h-[1px] bg-gold-gradient mx-auto mb-10 opacity-30"></div>
 
-                    <p className="text-[#F8F5F0] text-lg md:text-2xl leading-relaxed font-serif italic font-light max-w-4xl tracking-wide opacity-90">
-                        "The Sri Shyam Yantra is a <span className="text-[#F5D76E] font-bold">sacred geometric instrument</span> authorized by Vedic tradition,
-                        meticulously ritualized to serve as a conduit for the infinite grace of Shyam Baba."
+                    <p className="text-stone-100 text-xl md:text-3xl leading-relaxed font-serif italic font-light max-w-5xl tracking-wide mx-auto">
+                        "The Sri Shyam Yantra is a <span className="text-[#F5D76E] font-bold">sacred geometric instrument</span> authorized by <span className="text-[#F5D76E] font-bold">10,000 years of Vedic tradition</span>, meticulously ritualized over <span className="text-[#F5D76E] font-bold">45 days</span> to serve as a conduit for the infinite grace of Shyam Baba."
                     </p>
                 </motion.div>
 
-                {/* Icons Grid */}
+                {/* Structured Heritage Features Grid */}
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
-                    className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 w-full mt-2 md:mt-4"
+                    viewport={{ once: true, margin: "-100px" }}
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-4 lg:gap-8 w-full mt-12"
                 >
                     {[
-                        { title: 'Vedic Purity', icon: '✨', detail: 'Ancient Wisdom' },
-                        { title: 'Hand-Crafted', icon: '🎨', detail: 'Artisanal Grace' },
-                        { title: 'Divine Shield', icon: '🛡️', detail: 'Celestial Armor' },
-                        { title: 'Sacred Energy', icon: '⚡', detail: 'Spiritual Life Force' }
+                        { title: '10,000+ Years', sub: 'Ancient Vedic Purity', img: '/vedic.png', desc: 'Authorized by millennia of timeless tradition.' },
+                        { title: '45-Day Ritual', sub: 'Hand-Crafted Legacy', img: '/hand.png', desc: 'Meticulously ritualized by master chanters.' },
+                        { title: 'Divine Shield', sub: 'Celestial Protection', img: '/divine.png', desc: 'An impenetrable armor of spiritual energy.' },
+                        { title: 'Sacred Energy', sub: 'Activated Life Force', img: '/sacred.png', desc: 'Channels the pure vibrations of Shyam Baba.' }
                     ].map((item) => (
                         <motion.div
                             key={item.title}
-                            variants={cardVariants}
-                            whileHover={{ y: -5 }}
-                            className="flex flex-col items-center gap-3 md:gap-4 group cursor-none"
+                            variants={itemVariants}
+                            className="flex flex-col items-center group w-full"
                         >
-                            <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-xl border border-[#D4AF37]/20 flex items-center justify-center bg-[#081629]/50 group-hover:border-[#D4AF37]/60 transition-all duration-500 shadow-ambient-gold overflow-hidden rotate-45">
-                                <div className="absolute inset-0 bg-gold-gradient opacity-0 group-hover:opacity-10 transition-all duration-500 -rotate-45"></div>
-                                <span className="text-xl md:text-2xl filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)] -rotate-45 transition-transform duration-500">{item.icon}</span>
+                            {/* Sacred Image Container - Consistent Alignment Area */}
+                            <div className="h-32 md:h-40 flex items-center justify-center mb-8 relative">
+                                <div className="relative p-2 rounded-xl md:rounded-2xl border border-transparent transition-all duration-300 group-hover:border-[#D4AF37]/40 group-hover:bg-[#D4AF37]/5 group-hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] group-hover:scale-105">
+                                    <img
+                                        src={item.img}
+                                        className="w-24 md:w-28 lg:w-32 h-auto max-h-full object-contain relative z-10 brightness-110 contrast-110"
+                                        alt={item.title}
+                                    />
+                                </div>
                             </div>
-                            <div className="flex flex-col gap-0.5">
-                                <span className="text-[#F5D76E] text-[8px] md:text-[9px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">
+
+                            {/* Content Alignment Area */}
+                            <div className="flex flex-col gap-3 items-center min-h-[140px]">
+                                <h3 className="text-[#F5D76E] text-xl md:text-2xl font-serif font-bold tracking-tight text-glow h-8 flex items-center">
                                     {item.title}
+                                </h3>
+
+                                <div className="h-[1px] w-10 bg-gold-gradient opacity-30"></div>
+
+                                <span className="text-white text-[11px] md:text-[12px] font-bold uppercase tracking-[0.25em] opacity-90 h-4 flex items-center group-hover:text-[#F5D76E] group-hover:tracking-[0.35em] transition-all duration-300">
+                                    {item.sub}
                                 </span>
-                                <span className="text-stone-500 text-[7px] md:text-[8px] uppercase tracking-widest font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                                    {item.detail}
-                                </span>
+
+                                <p className="text-stone-200 text-base md:text-lg leading-relaxed max-w-[280px] font-serif italic font-light">
+                                    {item.desc}
+                                </p>
                             </div>
                         </motion.div>
                     ))}
@@ -89,14 +101,9 @@ const AboutSection = () => {
             </div>
 
             {/* Background Decoration */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 0.02 }}
-                viewport={{ once: true }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-            >
-                <img src="/image copy 4.png" className="w-[300px] md:w-[400px] h-auto grayscale blur-[2px]" alt="" />
-            </motion.div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.02]">
+                <img src="/image copy 4.png" className="w-[450px] h-auto grayscale blur-[1px]" alt="" />
+            </div>
         </section>
     );
 };
