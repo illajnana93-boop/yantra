@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
 
 const DivineSection: React.FC = () => {
     const particles = useMemo(() => [...Array(6)].map((_, i) => ({
@@ -37,7 +36,7 @@ const DivineSection: React.FC = () => {
 
             <div className="relative max-w-6xl mx-auto text-center z-10">
 
-{/* 
+                {/* 
                 {/* Video Frame */}
                 {/* <motion.div
                     initial={{ opacity: 0, scale: 0.98 }}
