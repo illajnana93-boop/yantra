@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaUser, FaCompass, FaMapMarkerAlt, FaOm } from 'react-icons/fa';
+import { FaUser, FaMapMarkerAlt, FaOm } from 'react-icons/fa';
 
 const TempleVision = () => {
     return (
