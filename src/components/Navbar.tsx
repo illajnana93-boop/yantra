@@ -81,43 +81,39 @@ const Navbar = () => {
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8 }}
-            className={`fixed w-full z-[9999] transition-all duration-500 py-4 px-6 md:px-24 flex justify-between items-center border-b ${scrolled || mobileMenuOpen ? 'bg-[#0A1F3C] shadow-2xl py-3 border-[#D4AF37]/30' : 'bg-transparent border-transparent'}`}
+            className={`fixed w-full z-[9999] transition-all duration-700 flex justify-between items-center border-b h-[90px] px-8 md:px-24 ${scrolled || mobileMenuOpen ? 'bg-[#040515] shadow-[0_10px_40px_rgba(0,0,0,0.5)] border-[#D4AF37]/40 backdrop-blur-xl' : 'bg-[#040515]/95 border-white/5 backdrop-blur-sm'}`}
         >
-            {/* Logo */}
-            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 group relative z-[10001] interactive">
+            {/* Logo - Centered vertically and made more dominant */}
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-5 group relative z-[10001] interactive">
                 <div className="relative">
-                    <div className="absolute inset-0 bg-[#D4AF37] rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                    <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10">
-                        <circle cx="50" cy="50" r="45" stroke="#D4AF37" strokeWidth="1" opacity="0.3" />
-                        <motion.circle
-                            cx="50" cy="50" r="30" stroke="#D4AF37" strokeWidth="2"
-                            animate={{ strokeDasharray: ["0, 200", "200, 0"] }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "linear" as const }}
-                        />
-                        <circle cx="50" cy="50" r="10" fill="#D4AF37" />
-                    </svg>
+                    <div className="absolute inset-0 bg-[#D4AF37] rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                    <img
+                        src="/logo.png"
+                        alt="Sri Shyam Logo"
+                        className="h-14 md:h-16 w-auto relative z-10 transition-transform duration-500 group-hover:scale-105"
+                    />
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-white text-lg md:text-xl font-serif font-bold tracking-[0.2em] leading-none">
+                    <span className="text-white text-xl md:text-2xl font-serif font-bold tracking-[0.25em] leading-none text-glow">
                         SRI SHYAM
                     </span>
-                    <span className="text-[#F5D76E] text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-bold opacity-70 mt-1">
+                    <span className="text-[#F5D76E] text-[11px] md:text-[12px] uppercase tracking-[0.5em] font-black opacity-80 mt-1.5">
                         Divine Yantra
                     </span>
                 </div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex gap-10 items-center">
-                <div className="flex gap-8">
+            {/* Desktop Navigation - Spaced eavenly with serif font */}
+            <div className="hidden lg:flex gap-16 items-center">
+                <div className="flex gap-12">
                     {navLinks.map((item) => (
                         <button
                             key={item.name}
                             onClick={() => handleLinkClick(item.path)}
-                            className="text-[#F8F5F0] uppercase text-[12px] md:text-[13px] font-bold tracking-[0.2em] transition-all hover:text-[#F5D76E] relative group interactive"
+                            className="text-[#F8F5F0] uppercase text-[13px] md:text-[14px] font-serif font-bold tracking-[0.25em] transition-all hover:text-[#F5D76E] relative group interactive"
                         >
                             {item.name}
-                            <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gold-gradient transition-all duration-300 group-hover:w-full" />
+                            <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-gold-gradient transition-all duration-500 group-hover:w-full shadow-[0_0_10px_rgba(212,175,55,0.8)]" />
                         </button>
                     ))}
                 </div>
@@ -125,21 +121,21 @@ const Navbar = () => {
 
             {/* Mobile Menu Toggle Button */}
             <button
-                className="md:hidden relative z-[10001] text-[#D4AF37] p-4 -mr-4 interactive"
+                className="lg:hidden relative z-[10001] text-[#D4AF37] p-4 -mr-4 interactive"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-                <div className="w-8 h-4 flex flex-col justify-between">
+                <div className="w-9 h-5 flex flex-col justify-between">
                     <motion.span
-                        animate={mobileMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                        animate={mobileMenuOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }}
+                        className="h-0.5 w-full bg-[#D4AF37] rounded-full shadow-[0_0_8px_rgba(212,175,55,0.5)]"
+                    />
+                    <motion.span
+                        animate={mobileMenuOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }}
                         className="h-0.5 w-full bg-[#D4AF37] rounded-full"
                     />
                     <motion.span
-                        animate={mobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                        className="h-0.5 w-full bg-[#D4AF37] rounded-full"
-                    />
-                    <motion.span
-                        animate={mobileMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-                        className="h-0.5 w-full bg-[#D4AF37] rounded-full"
+                        animate={mobileMenuOpen ? { rotate: -45, y: -9 } : { rotate: 0, y: 0 }}
+                        className="h-0.5 w-full bg-[#D4AF37] rounded-full shadow-[0_0_8px_rgba(212,175,55,0.5)]"
                     />
                 </div>
             </button>

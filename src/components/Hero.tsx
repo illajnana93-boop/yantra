@@ -46,14 +46,14 @@ const Hero = () => {
     };
 
     return (
-        <section className="min-h-[85vh] flex items-center bg-[#081629] relative overflow-hidden pt-24 md:pt-0">
-            {/* Ambient Lighting Background */}
-            <div className="absolute inset-0 bg-navy-gradient opacity-60"></div>
+        <section className="min-h-[85vh] lg:h-[90vh] flex lg:items-center bg-[#081629] relative overflow-hidden pt-32 lg:pt-0">
+            {/* Ambient Lighting Background - Reduced intensity to make navbar stand out */}
+            <div className="absolute inset-0 bg-navy-gradient opacity-30"></div>
 
-            <div className="absolute top-[10%] right-[-5%] w-[80%] md:w-[50%] h-[50%] bg-[#D4AF37]/5 rounded-full blur-[100px] md:blur-[120px] pointer-events-none"></div>
-            <div className="absolute bottom-[10%] left-[-5%] w-[70%] md:w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[80px] md:blur-[100px] pointer-events-none"></div>
+            <div className="absolute top-[10%] right-[-5%] w-[80%] md:w-[50%] h-[50%] bg-[#D4AF37]/2 rounded-full blur-[100px] md:blur-[120px] pointer-events-none"></div>
+            <div className="absolute bottom-[10%] left-[-5%] w-[70%] md:w-[40%] h-[40%] bg-blue-900/5 rounded-full blur-[80px] md:blur-[100px] pointer-events-none"></div>
 
-            <div className="container mx-auto px-4 md:px-8 lg:px-12 grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-10 items-center relative z-10 py-16 md:py-20">
+            <div className="container mx-auto px-4 md:px-8 lg:px-12 grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-10 items-center relative z-10 py-12 lg:pt-32 lg:pb-16">
                 {/* Left: Divine Content - Secondary focus */}
                 <motion.div
                     variants={containerVariants}
@@ -111,7 +111,7 @@ const Hero = () => {
                         className="relative w-full md:max-w-none lg:max-w-[850px] aspect-video z-10"
                     >
                         <div
-                            className="w-full h-full relative rounded-[1.5rem] md:rounded-[2.5rem] lg:rounded-[3rem] border border-[#D4AF37]/35 shadow-[0_0_80px_rgba(212,175,55,0.25)] overflow-hidden bg-[#050c18]"
+                            className="w-full h-full relative rounded-[1.5rem] md:rounded-[2.5rem] lg:rounded-[3rem] border border-[#D4AF37]/25 shadow-[0_0_50px_rgba(212,175,55,0.15)] overflow-hidden bg-[#050c18]"
                         >
                             <video
                                 ref={videoRef}
@@ -146,8 +146,8 @@ const Hero = () => {
                             </motion.button>
                         </div>
 
-                        {/* Background Ambient Glow for the Video - LARGER for dominance */}
-                        <div className="absolute -inset-10 bg-gold-gradient opacity-15 blur-[100px] rounded-full pointer-events-none z-0"></div>
+                        {/* Background Ambient Glow for the Video - Reduced for navbar focus */}
+                        <div className="absolute -inset-10 bg-gold-gradient opacity-5 blur-[100px] rounded-full pointer-events-none z-0"></div>
                     </motion.div>
                 </div>
             </div>
