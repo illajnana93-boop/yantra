@@ -24,6 +24,19 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    // Aggressive bypass for development/Vite internal modules
+    if (
+        event.request.url.includes('localhost') ||
+        event.request.url.includes('127.0.0.1') ||
+        event.request.url.includes('/@vite/') ||
+        event.request.url.includes('/src/') ||
+        event.request.url.includes('.tsx') ||
+        event.request.url.includes('.ts') ||
+        event.request.url.includes('hot-update')
+    ) {
+        return;
+    }
+
     // Network First for HTML to avoid 404 on hashed assets
     if (event.request.mode === 'navigate') {
         event.respondWith(
@@ -34,7 +47,10 @@ self.addEventListener('fetch', (event) => {
 
     event.respondWith(
         caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
+            return response || fetch(event.request).catch(() => {
+                // Return null if fetch fails to avoid promise rejection noise
+                return null;
+            });
         })
     );
 });

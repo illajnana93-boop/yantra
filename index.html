@@ -11,13 +11,19 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;600&family=Poppins:wght@600;700&display=swap"
     rel="stylesheet">
-  <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="#081629" />
-  <link rel="apple-touch-icon" href="/vite.svg" />
   <script>
+    // Force cleanup of EVERYTHING related to Service Workers to fix 500/reload errors
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js');
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        for (let registration of registrations) {
+          registration.unregister().then(() => {
+            console.log('SW unregistered');
+            window.location.reload();
+          });
+        }
+      });
+      caches.keys().then(names => {
+        for (let name of names) caches.delete(name);
       });
     }
   </script>

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
 const products = [
@@ -21,6 +21,7 @@ const products = [
 
 const ProductSection = () => {
     const [quantities, setQuantities] = useState<{ [key: number]: number }>({ 1: 1, 2: 1 });
+    const [showComingSoon, setShowComingSoon] = useState(false);
 
     const updateQuantity = (id: number, delta: number) => {
         setQuantities(prev => ({ ...prev, [id]: Math.max(1, prev[id] + delta) }));
@@ -103,6 +104,7 @@ const ProductSection = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
+                                    onClick={() => setShowComingSoon(true)}
                                     className="btn-gold-royal w-full py-4 md:py-5 text-sm md:text-base font-black rounded-full interactive shadow-xl"
                                 >
                                     Include in My Prayer
@@ -115,6 +117,47 @@ const ProductSection = () => {
             </div>
 
             <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0A1F3C] to-transparent"></div>
+
+            {/* Coming Soon Modal */}
+            <AnimatePresence>
+                {showComingSoon && (
+                    <div className="fixed inset-0 z-[10000] flex items-center justify-center p-6">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setShowComingSoon(false)}
+                            className="absolute inset-0 bg-[#050c18]/80 backdrop-blur-md"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="relative w-full max-w-md glass-card p-10 md:p-12 text-center overflow-hidden"
+                        >
+                            {/* Decorative Elements */}
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gold-gradient"></div>
+                            <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#D4AF37]/10 rounded-full blur-3xl"></div>
+
+                            <div className="text-5xl md:text-6xl mb-6 filter drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">🕉️</div>
+
+                            <h3 className="text-gold-gradient text-2xl md:text-3xl font-serif font-bold mb-4">Divine Grace Awaits</h3>
+                            <div className="w-16 h-[1px] bg-[#D4AF37]/30 mx-auto mb-6"></div>
+
+                            <p className="text-stone-200 text-lg leading-relaxed font-serif italic mb-8">
+                                "The sacred digital gateway for devotee prayers is currently being ritualized. This feature will be available soon."
+                            </p>
+
+                            <button
+                                onClick={() => setShowComingSoon(false)}
+                                className="btn-gold-royal px-10 py-3.5 rounded-full text-xs font-bold tracking-[0.2em] outline-none interactive"
+                            >
+                                CLOSE
+                            </button>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };

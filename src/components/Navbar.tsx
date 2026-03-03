@@ -101,7 +101,7 @@ const Navbar = () => {
                     <span className="text-white text-lg md:text-xl font-serif font-bold tracking-[0.2em] leading-none">
                         SRI SHYAM
                     </span>
-                    <span className="text-[#F5D76E] text-[8px] md:text-[9px] uppercase tracking-[0.4em] font-bold opacity-70 mt-1">
+                    <span className="text-[#F5D76E] text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-bold opacity-70 mt-1">
                         Divine Yantra
                     </span>
                 </div>
@@ -114,7 +114,7 @@ const Navbar = () => {
                         <button
                             key={item.name}
                             onClick={() => handleLinkClick(item.path)}
-                            className="text-[#F8F5F0] uppercase text-[10px] font-bold tracking-[0.2em] transition-all hover:text-[#F5D76E] relative group interactive"
+                            className="text-[#F8F5F0] uppercase text-[12px] md:text-[13px] font-bold tracking-[0.2em] transition-all hover:text-[#F5D76E] relative group interactive"
                         >
                             {item.name}
                             <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gold-gradient transition-all duration-300 group-hover:w-full" />
