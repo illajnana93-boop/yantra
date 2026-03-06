@@ -63,12 +63,9 @@ const FloatingContribute = () => {
                             onFocus={() => setShowTooltip(true)}
                             onBlur={() => setShowTooltip(false)}
                             aria-label="Contribute to temple"
-                            className="relative w-16 h-16 rounded-full bg-gradient-to-br from-[#C9A227] via-[#F5D76E] to-[#C9A227] shadow-[0_8px_32px_rgba(212,175,55,0.5)] flex flex-col items-center justify-center gap-0.5 group"
+                            className="relative w-16 h-16 rounded-full bg-gradient-to-br from-[#C9A227] via-[#F5D76E] to-[#C9A227] shadow-[0_8px_32px_rgba(212,175,55,0.5)] flex items-center justify-center group"
                         >
-                            <FaHandHoldingHeart className="text-[#060f1e] text-xl group-hover:scale-110 transition-transform duration-300" />
-                            <span className="text-[#060f1e] text-[8px] font-black uppercase tracking-[0.1em] leading-none">
-                                Contrib.
-                            </span>
+                            <FaHandHoldingHeart className="text-[#060f1e] text-2xl group-hover:scale-110 transition-transform duration-300" />
                         </motion.button>
                     </div>
                 </div>
