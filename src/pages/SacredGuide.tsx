@@ -52,6 +52,7 @@ const SacredGuide = () => {
                         <div className="absolute -inset-3 md:-inset-6 border border-[#D4AF37]/10 rounded-[2rem] md:rounded-[3rem] rotate-1"></div>
                         <div className="w-full aspect-square bg-[#0A1F3C]/80 rounded-[1.5rem] md:rounded-[2.5rem] border border-[#D4AF37]/20 p-3 md:p-4 relative z-10 shadow-xl overflow-hidden glass-card">
                             <img
+                                loading="lazy"
                                 src="/image copy 7.png"
                                 className="w-full h-full object-cover rounded-[1rem] md:rounded-[2rem] filter brightness-105"
                                 alt="Yantra Placement"
@@ -127,7 +128,7 @@ const SacredGuide = () => {
                                 className="glass-card p-6 md:p-8 group flex flex-col items-center text-center shadow-lg hover:border-[#D4AF37]/40 transition-all"
                             >
                                 <div className="mb-6 md:mb-8 overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] aspect-[4/5] relative w-full border border-white/5">
-                                    <img src={card.img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={card.title} />
+                                    <img loading="lazy" src={card.img} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={card.title} />
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#081629]/80 via-transparent to-transparent"></div>
                                 </div>
                                 <h4 className="text-white font-serif text-xl md:text-2xl mb-2 md:mb-3 group-hover:text-gold-gradient transition-all">{card.title}</h4>

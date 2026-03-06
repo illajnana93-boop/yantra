@@ -73,7 +73,7 @@ const ProductSection = () => {
                                 whileHover={{ scale: 1.05 }}
                                 className="w-full aspect-video md:aspect-square bg-[#0A1F3C]/60 rounded-[1.5rem] md:rounded-[2.5rem] border border-[#D4AF37]/20 p-4 md:p-8 shadow-inner flex items-center justify-center relative overflow-hidden"
                             >
-                                <img src={p.image} className="w-full h-full object-contain filter brightness-110 drop-shadow-2xl relative z-10" alt={p.weight} />
+                                <img loading="lazy" src={p.image} className="w-full h-full object-contain filter brightness-110 drop-shadow-2xl relative z-10" alt={p.weight} />
                             </motion.div>
                         </div>
 

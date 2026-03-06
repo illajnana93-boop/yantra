@@ -72,6 +72,7 @@ const AboutSection = () => {
                             <div className="h-32 md:h-40 flex items-center justify-center mb-8 relative">
                                 <div className="relative p-2 rounded-xl md:rounded-2xl border border-transparent transition-all duration-300 group-hover:border-[#D4AF37]/40 group-hover:bg-[#D4AF37]/5 group-hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] group-hover:scale-105">
                                     <img
+                                        loading="lazy"
                                         src={item.img}
                                         className="w-24 md:w-28 lg:w-32 h-auto max-h-full object-contain relative z-10 brightness-110 contrast-110"
                                         alt={item.title}

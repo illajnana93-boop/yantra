@@ -45,6 +45,7 @@ const TempleVision = () => {
                             <video
                                 src="/temple.mp4"
                                 controls
+                                preload="metadata"
                                 className="w-full aspect-video object-cover"
                             />
                         </div>
