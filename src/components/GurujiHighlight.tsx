@@ -235,7 +235,13 @@ const GurujiHighlight = () => {
                 </motion.div>
 
                 {/* Right: Interaction Stage */}
-                <div className="w-full md:w-1/2 flex flex-col gap-6">
+                <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="w-full md:w-1/2 flex flex-col gap-6"
+                >
                     <div className="flex flex-col gap-2">
                         <span className="text-[#D4AF37] font-medium tracking-[0.2em] uppercase text-sm">Divine Interaction</span>
                         <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">Consult with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#B8860B]">Guruji</span></h2>
@@ -294,7 +300,7 @@ const GurujiHighlight = () => {
                             </button>
                         ))}
                     </div>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

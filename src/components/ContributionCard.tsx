@@ -65,7 +65,7 @@ const ContributionCard = () => {
                     <p className="text-gold-gradient uppercase tracking-[0.5em] text-[10px] md:text-[12px] font-black mb-4 flex items-center justify-center gap-2">
                         <FaGem className="text-[#D4AF37] text-xs" /> Sacred Contribution <FaGem className="text-[#D4AF37] text-xs" />
                     </p>
-                    <h2 className="text-white text-4xl md:text-6xl font-serif tracking-tight text-glow mb-5">
+                    <h2 className="text-white text-4xl md:text-6xl tracking-tight text-glow mb-5">
                         Build the Temple,<br />
                         <span className="text-gold-gradient">Receive the Yantra</span>
                     </h2>
@@ -77,7 +77,7 @@ const ContributionCard = () => {
                         className="divider-gold-thin mx-auto mb-8"
                     />
                     {/* Storytelling */}
-                    <p className="text-stone-300 text-lg md:text-xl font-serif italic max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-stone-300 text-lg md:text-xl italic max-w-2xl mx-auto leading-relaxed">
                         Every contribution you make goes towards constructing the sacred Baba Shyam Temple.
                         Each rupee you offer lays one square foot of holy ground — and in return, Baba Shyam
                         blesses you with a divinely energized Yantra.
@@ -148,12 +148,12 @@ const ContributionCard = () => {
 
                                 {/* Content */}
                                 <div className="px-7 md:px-9 pb-8 flex flex-col flex-grow">
-                                    <h3 className="text-white text-2xl md:text-3xl font-serif text-center mb-2 tracking-wide">
+                                    <h3 className="text-white text-2xl md:text-3xl text-center mb-2 tracking-wide">
                                         {offering.weight}
                                     </h3>
 
                                     {/* Spiritual description */}
-                                    <p className="text-stone-300 text-sm md:text-base font-serif italic text-center leading-relaxed mb-6 px-2">
+                                    <p className="text-stone-300 text-sm md:text-base italic text-center leading-relaxed mb-6 px-2">
                                         "{offering.description}"
                                     </p>
 
@@ -190,7 +190,7 @@ const ContributionCard = () => {
                                             onClick={() => updateQty(offering.id, -1)}
                                             className="w-10 h-10 rounded-full border border-[#D4AF37]/30 text-[#D4AF37] text-xl hover:bg-[#D4AF37]/10 transition-all interactive flex items-center justify-center"
                                         >−</button>
-                                        <span className="text-[#F5D76E] font-serif font-black text-3xl min-w-[3rem] text-center">
+                                        <span className="text-[#F5D76E] font-black text-3xl min-w-[3rem] text-center">
                                             {quantities[offering.id]}
                                         </span>
                                         <button
@@ -253,10 +253,10 @@ const ContributionCard = () => {
                     <p className="text-gold-gradient uppercase tracking-[0.4em] text-[10px] font-black mb-3">
                         Temple Construction Progress
                     </p>
-                    <h3 className="text-white text-2xl md:text-3xl font-serif mb-2">
+                    <h3 className="text-white text-2xl md:text-3xl mb-2">
                         Together, we have laid <span className="text-gold-gradient font-black">247 sq. ft.</span> of sacred ground
                     </h3>
-                    <p className="text-stone-400 text-sm font-serif italic mb-8">
+                    <p className="text-stone-400 text-sm italic mb-8">
                         Goal: 1,000 sq. ft. · Each contribution = 1 sq. ft. of Baba's Temple
                     </p>
                     <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden border border-[#D4AF37]/20">
@@ -300,11 +300,11 @@ const ContributionCard = () => {
                                     <FaHandsPraying className="text-[#F5D76E] text-3xl" />
                                 </div>
                             </div>
-                            <h3 className="text-gold-gradient text-2xl font-serif font-bold mb-3">
+                            <h3 className="text-gold-gradient text-2xl font-bold mb-3">
                                 Jai Shri Shyam!
                             </h3>
                             <div className="w-12 h-[1px] bg-[#D4AF37]/40 mx-auto mb-5" />
-                            <p className="text-stone-200 text-base font-serif italic leading-relaxed mb-8">
+                            <p className="text-stone-200 text-base italic leading-relaxed mb-8">
                                 Your sacred offering has been added. Baba Shyam's blessings are with you.
                                 Proceed to checkout to complete your contribution and receive your divine Yantra.
                             </p>

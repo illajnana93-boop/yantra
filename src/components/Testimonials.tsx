@@ -48,7 +48,7 @@ const Testimonials = () => {
                     className="mb-12 md:mb-16"
                 >
                     <p className="text-gold-gradient uppercase tracking-[0.4em] md:tracking-[0.6em] text-[9px] md:text-[10px] font-black mb-3">Devoted Voices</p>
-                    <h2 className="text-white text-3xl md:text-6xl font-serif text-glow">Sacred Experiences</h2>
+                    <h2 className="text-white text-3xl md:text-6xl text-glow">Sacred Experiences</h2>
                     <div className="w-16 md:w-20 h-[1px] bg-gold-gradient mx-auto mt-6 opacity-40"></div>
                 </motion.div>
 
@@ -69,7 +69,7 @@ const Testimonials = () => {
                                     ))}
                                 </div>
 
-                                <p className="text-[#F8F5F0] text-lg md:text-2xl font-serif italic mb-8 md:mb-10 leading-relaxed tracking-wide font-light opacity-95">
+                                <p className="text-[#F8F5F0] text-lg md:text-2xl italic mb-8 md:mb-10 leading-relaxed tracking-wide font-light opacity-95">
                                     "{testimonials[currentIndex].text}"
                                 </p>
 

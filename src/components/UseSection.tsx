@@ -33,7 +33,7 @@ const UseSection = () => {
                 <p className="text-gold-gradient uppercase tracking-[0.4em] md:tracking-[0.5em] text-[9px] md:text-[10px] font-black mb-3">
                     The Ritual Path
                 </p>
-                <h2 className="text-white text-4xl md:text-6xl font-serif tracking-tight text-glow">
+                <h2 className="text-white text-4xl md:text-6xl tracking-tight text-glow">
                     Divine Practice
                 </h2>
                 <div className="w-16 md:w-20 h-[1px] bg-gold-gradient mx-auto mt-6 opacity-30 shadow-ambient-gold"></div>
@@ -54,10 +54,10 @@ const UseSection = () => {
                             {use.icon}
                         </div>
 
-                        <h3 className="text-white text-xl md:text-2xl font-serif mb-4 tracking-wide group-hover:text-gold-400 transition-colors">
+                        <h3 className="text-white text-xl md:text-2xl mb-4 tracking-wide group-hover:text-gold-400 transition-colors">
                             {use.title}
                         </h3>
-                        <p className="text-stone-200 text-lg md:text-xl leading-relaxed tracking-wide font-serif italic font-light">
+                        <p className="text-stone-200 text-lg md:text-xl leading-relaxed tracking-wide italic font-light">
                             {use.desc}
                         </p>
 

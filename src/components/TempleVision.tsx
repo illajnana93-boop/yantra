@@ -20,10 +20,10 @@ const TempleVision = () => {
                     className="text-center mb-16 md:mb-24"
                 >
                     <p className="text-[#D4AF37]/80 text-[10px] md:text-[12px] uppercase font-bold tracking-[0.6em] mb-4">Divine Mission</p>
-                    <h2 className="text-gold-gradient text-4xl md:text-6xl lg:text-7xl font-serif tracking-tight leading-tight uppercase mb-6 filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)]">
+                    <h2 className="text-gold-gradient text-4xl md:text-6xl lg:text-7xl tracking-tight leading-tight uppercase mb-6 filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)]">
                         The 100 Temple Vision
                     </h2>
-                    <p className="text-[#F5D76E] text-lg md:text-xl font-serif italic tracking-wide opacity-90">
+                    <p className="text-[#F5D76E] text-lg md:text-xl italic tracking-wide opacity-90">
                         Building 100 Sacred Temples Over 20 Years
                     </p>
                     <div className="divider-gold-thin max-w-2xl mx-auto mt-10"></div>
@@ -64,10 +64,10 @@ const TempleVision = () => {
                         className="flex flex-col space-y-8"
                     >
                         <div className="space-y-6">
-                            <h3 className="text-[#F5D76E] text-2xl md:text-3xl font-serif font-bold italic tracking-wide leading-snug">
+                            <h3 className="text-[#F5D76E] text-2xl md:text-3xl font-bold italic tracking-wide leading-snug">
                                 Establishing a Legacy of Devotion
                             </h3>
-                            <p className="text-stone-300 text-lg leading-relaxed font-serif italic font-light">
+                            <p className="text-stone-300 text-lg leading-relaxed italic font-light">
                                 Our sacred mission is to establish 100 temples over the next two decades, creating permanent sanctuaries of peace, protection, and divine connection for devotees worldwide.
                             </p>
                             <p className="text-stone-400 text-base leading-relaxed">
@@ -89,7 +89,7 @@ const TempleVision = () => {
                                 </div>
                                 <div>
                                     <p className="text-[#D4AF37] text-xs font-black uppercase tracking-widest mb-3">Mandir Address</p>
-                                    <p className="text-white text-lg font-serif leading-relaxed tracking-wide">
+                                    <p className="text-white text-lg leading-relaxed tracking-wide">
                                         Plot No. 340, Kothur Penjerla Village,<br />
                                         Mahabubnagar District,<br />
                                         Telangana – 509228
@@ -98,7 +98,7 @@ const TempleVision = () => {
                             </div>
                         </motion.div>
 
-                        <p className="text-[#F5D76E]/80 text-base font-serif italic border-l-2 border-[#D4AF37]/30 pl-6">
+                        <p className="text-[#F5D76E]/80 text-base italic border-l-2 border-[#D4AF37]/30 pl-6">
                             "Every devotee's name becomes a permanent part of the temple wall."
                         </p>
                     </motion.div>
@@ -128,7 +128,7 @@ const TempleVision = () => {
                                 <div className="p-4 bg-[#D4AF37]/10 rounded-full text-[#D4AF37] text-2xl">
                                     {item.icon}
                                 </div>
-                                <span className="text-white font-serif text-lg tracking-wide uppercase">{item.label}</span>
+                                <span className="text-white text-lg tracking-wide uppercase">{item.label}</span>
                             </motion.div>
                         ))}
                     </div>

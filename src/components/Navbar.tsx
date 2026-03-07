@@ -113,7 +113,7 @@ const Navbar = () => {
                         <button
                             key={item.name}
                             onClick={() => handleLinkClick(item.path)}
-                            className="text-[#F8F5F0] uppercase text-[13px] font-serif font-bold tracking-[0.22em] transition-all hover:text-[#F5D76E] relative group interactive"
+                            className="text-[#F8F5F0] uppercase text-[13px] font-bold tracking-[0.22em] transition-all hover:text-[#F5D76E] relative group interactive"
                         >
                             {item.name}
                             <span className="absolute -bottom-1.5 left-0 w-0 h-[1.5px] bg-gold-gradient transition-all duration-400 group-hover:w-full" />
@@ -199,7 +199,7 @@ const Navbar = () => {
                                 >
                                     <button
                                         onClick={() => handleLinkClick(item.path)}
-                                        className="text-[#F8F5F0] uppercase text-3xl font-serif tracking-[0.1em] py-4 w-full flex flex-col items-center group active:scale-95 transition-transform"
+                                        className="text-[#F8F5F0] uppercase text-3xl tracking-[0.1em] py-4 w-full flex flex-col items-center group active:scale-95 transition-transform"
                                     >
                                         <span className="text-gold-gradient mb-1 opacity-0 group-hover:opacity-100 transition-opacity text-sm">~ 🕉 ~</span>
                                         {item.name}

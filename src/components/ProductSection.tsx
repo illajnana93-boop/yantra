@@ -34,16 +34,18 @@ const ProductSection = () => {
 
             <div className="text-center mb-12 md:mb-24 relative z-10 px-6">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{ duration: 1 }}
                     className="flex flex-col items-center gap-4"
                 >
                     <p className="text-gold-gradient uppercase tracking-[0.4em] md:tracking-[0.6em] text-[10px] md:text-[12px] font-black mb-2">Sacred Store</p>
-                    <h2 className="text-white text-4xl md:text-7xl font-serif tracking-tight text-glow px-4">Devotional Offerings</h2>
+                    <h2 className="text-white text-4xl md:text-7xl tracking-tight text-glow px-4">Devotional Offerings</h2>
                     <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: "120px" }}
+                        viewport={{ once: true }}
                         transition={{ duration: 1.5, delay: 0.5 }}
                         className="divider-gold-thin mx-auto mt-6 md:mt-8"
                     ></motion.div>
@@ -80,7 +82,7 @@ const ProductSection = () => {
                         {/* Content Area */}
                         <div className="text-center flex flex-col items-center flex-grow justify-between gap-6">
                             <div>
-                                <h3 className="text-white text-3xl md:text-4xl mb-2 md:mb-3 tracking-wide group-hover:text-gold-500 transition-colors duration-500 font-serif">{p.weight}</h3>
+                                <h3 className="text-white text-3xl md:text-4xl mb-2 md:mb-3 tracking-wide group-hover:text-gold-500 transition-colors duration-500">{p.weight}</h3>
                                 <div className="text-gold-gradient font-black text-4xl md:text-6xl mb-4 md:mb-6 filtering drop-shadow-sm">₹{p.price.toLocaleString()}</div>
 
                                 <ul className="w-full space-y-3 md:space-y-4 py-4 md:py-6 border-y border-white/10 mb-2 md:mb-4">
@@ -97,7 +99,7 @@ const ProductSection = () => {
                             <div className="w-full flex flex-col items-center gap-5 md:gap-7 mt-auto">
                                 <div className="flex items-center gap-6 md:gap-8">
                                     <button onClick={() => updateQuantity(p.id, -1)} className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 text-xl md:text-2xl font-light interactive">−</button>
-                                    <span className="text-3xl md:text-4xl font-serif font-black text-[#F5D76E] min-w-[3rem] md:min-w-[4rem]">{quantities[p.id]}</span>
+                                    <span className="text-3xl md:text-4xl font-black text-[#F5D76E] min-w-[3rem] md:min-w-[4rem]">{quantities[p.id]}</span>
                                     <button onClick={() => updateQuantity(p.id, 1)} className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 text-xl md:text-2xl font-light interactive">+</button>
                                 </div>
 
@@ -141,10 +143,10 @@ const ProductSection = () => {
 
                             <div className="text-5xl md:text-6xl mb-6 filter drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">🕉️</div>
 
-                            <h3 className="text-gold-gradient text-2xl md:text-3xl font-serif font-bold mb-4">Divine Grace Awaits</h3>
+                            <h3 className="text-gold-gradient text-2xl md:text-3xl font-bold mb-4">Divine Grace Awaits</h3>
                             <div className="w-16 h-[1px] bg-[#D4AF37]/30 mx-auto mb-6"></div>
 
-                            <p className="text-stone-200 text-lg leading-relaxed font-serif italic mb-8">
+                            <p className="text-stone-200 text-lg leading-relaxed italic mb-8">
                                 "The sacred digital gateway for devotee prayers is currently being ritualized. This feature will be available soon."
                             </p>
 

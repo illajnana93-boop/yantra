@@ -60,7 +60,7 @@ const DailyGuidance = () => {
                     className="text-center mb-16"
                 >
                     <p className="text-[#00E5FF] filter drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] text-[10px] md:text-[12px] uppercase font-bold tracking-[0.6em] mb-4">Divine Insights</p>
-                    <h2 className="text-4xl md:text-6xl font-serif text-white tracking-tight mb-6 text-glow">
+                    <h2 className="text-4xl md:text-6xl text-white tracking-tight mb-6 text-glow">
                         Daily <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#F5D76E] italic">Spiritual Guidance</span>
                     </h2>
                     <div className="w-24 h-[1px] bg-gold-gradient mx-auto opacity-40"></div>
@@ -77,8 +77,8 @@ const DailyGuidance = () => {
                             className="bg-[#081629]/60 backdrop-blur-md border border-[#D4AF37]/20 p-8 md:p-14 rounded-[2.5rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden mx-auto max-w-5xl"
                         >
                             <div className="text-center mb-12 relative z-10">
-                                <p className="text-[#00E5FF]/80 text-[10px] md:text-xs uppercase font-bold tracking-[0.4em] mb-2 font-sans">Cosmic Alignment</p>
-                                <h3 className="text-[#D4AF37] text-2xl md:text-4xl font-serif text-glow mb-4">Select Your Zodiac Sign</h3>
+                                <p className="text-[#00E5FF]/80 text-[10px] md:text-xs uppercase font-bold tracking-[0.4em] mb-2">Cosmic Alignment</p>
+                                <h3 className="text-[#D4AF37] text-2xl md:text-4xl text-glow mb-4">Select Your Zodiac Sign</h3>
                                 <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto opacity-70 filter drop-shadow-[0_0_8px_rgba(212,175,55,0.8)]"></div>
                             </div>
 
@@ -132,7 +132,7 @@ const DailyGuidance = () => {
                                             <span className="text-2xl md:text-3xl filter drop-shadow-[0_0_5px_rgba(212,175,55,0.4)] text-[#D4AF37] group-hover:text-[#F5D76E] transition-all">
                                                 {SIGN_EMOJIS[sign]}
                                             </span>
-                                            <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] md:text-[11px] text-[#F5D76E] tracking-[0.2em] font-serif whitespace-nowrap bg-[#040515]/90 px-3 py-1 rounded-full border border-[#D4AF37]/40 pointer-events-none drop-shadow-md">
+                                            <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] md:text-[11px] text-[#F5D76E] tracking-[0.2em] whitespace-nowrap bg-[#040515]/90 px-3 py-1 rounded-full border border-[#D4AF37]/40 pointer-events-none drop-shadow-md">
                                                 {sign}
                                             </span>
                                         </button>
@@ -156,11 +156,11 @@ const DailyGuidance = () => {
                                 {isLoading ? (
                                     <div className="flex flex-col items-center justify-center py-32 z-10 relative">
                                         <div className="w-16 h-16 border-4 border-[#D4AF37]/20 border-t-[#D4AF37] rounded-full animate-spin mb-6 shadow-[0_0_15px_rgba(212,175,55,0.2)]"></div>
-                                        <p className="text-[#D4AF37]/80 text-sm tracking-[0.3em] uppercase font-serif italic">Reading the Stars...</p>
+                                        <p className="text-[#D4AF37]/80 text-sm tracking-[0.3em] uppercase italic">Reading the Stars...</p>
                                     </div>
                                 ) : error ? (
                                     <div className="text-center py-20 z-10 relative">
-                                        <p className="text-red-400 font-serif text-xl mb-8">{error}</p>
+                                        <p className="text-red-400 text-xl mb-8">{error}</p>
                                         <button
                                             onClick={() => handleSelectSign(selectedSign)}
                                             className="text-[#D4AF37] border border-[#D4AF37]/50 px-8 py-3 rounded-full hover:bg-[#D4AF37]/10 transition-colors uppercase tracking-widest text-sm font-bold shadow-[0_0_15px_rgba(212,175,55,0.1)]"
@@ -176,7 +176,7 @@ const DailyGuidance = () => {
                                                 <p className="text-[#D4AF37]/80 text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold mb-3 flex items-center gap-3 font-sans">
                                                     {guidanceData.current_date}
                                                 </p>
-                                                <h3 className="text-white text-3xl md:text-5xl font-serif text-glow flex items-center gap-3">
+                                                <h3 className="text-white text-3xl md:text-5xl text-glow flex items-center gap-3">
                                                     {guidanceData.sign}
                                                     <span className="text-[#D4AF37] filter drop-shadow-[0_0_10px_rgba(212,175,55,0.6)] text-2xl md:text-3xl ml-1">{SIGN_EMOJIS[guidanceData.sign]}</span>
                                                 </h3>
@@ -214,7 +214,7 @@ const DailyGuidance = () => {
                                                         <p className={`${item.highlight ? 'text-[#ff6666]/80' : 'text-[#00E5FF]/70'} text-[9px] md:text-[10px] uppercase tracking-[0.15em] font-bold`}>
                                                             {item.label}
                                                         </p>
-                                                        <p className={`${item.highlight ? 'text-white' : 'text-[#F5D76E]'} text-lg md:text-xl font-serif font-medium`}>{item.value}</p>
+                                                        <p className={`${item.highlight ? 'text-white' : 'text-[#F5D76E]'} text-lg md:text-xl font-medium`}>{item.value}</p>
                                                     </div>
                                                 </motion.div>
                                             ))}
@@ -227,7 +227,7 @@ const DailyGuidance = () => {
                                             </div>
                                             <div className="pt-4 flex flex-col items-center">
                                                 <div className="text-[#D4AF37]/30 text-xl font-light mb-4 italic">/ /</div>
-                                                <p className="text-[#E5E0D8] text-xl md:text-[22px] font-serif italic text-center leading-relaxed md:leading-[2] font-light opacity-90 px-2 lg:px-12">
+                                                <p className="text-[#E5E0D8] text-xl md:text-[22px] italic text-center leading-relaxed md:leading-[2] font-light opacity-90 px-2 lg:px-12">
                                                     {guidanceData.description}
                                                 </p>
                                             </div>

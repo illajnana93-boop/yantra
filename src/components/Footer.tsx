@@ -25,12 +25,12 @@ const Footer = () => {
                         className="flex flex-col gap-8"
                     >
                         <div className="interactive">
-                            <h3 className="text-gold-gradient text-3xl font-serif font-bold tracking-[0.2em] leading-none mb-4">
+                            <h3 className="text-gold-gradient text-3xl font-bold tracking-[0.2em] leading-none mb-4">
                                 SRI SHYAM
                             </h3>
                             <p className="text-[#F5D76E] text-[10px] uppercase font-bold tracking-[0.5em] opacity-80">Divine Presence</p>
                         </div>
-                        <p className="text-[#F8F5F0]/60 text-base leading-relaxed font-serif italic font-light tracking-wide max-w-xs">
+                        <p className="text-[#F8F5F0]/60 text-base leading-relaxed italic font-light tracking-wide max-w-xs">
                             Bringing the sacred essence of Shyam Baba into every home through authentic Vedic instruments of protection and prosperity.
                         </p>
                     </motion.div>

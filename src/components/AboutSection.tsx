@@ -38,13 +38,13 @@ const AboutSection = () => {
                         <p className="text-gold-gradient text-[10px] md:text-[11px] uppercase font-bold tracking-[0.5em]">The Sacred Essence</p>
                     </div>
 
-                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white mb-6 md:mb-8 tracking-tight text-glow px-4">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl text-white mb-6 md:mb-8 tracking-tight text-glow px-4">
                         What is <span className="text-gold-gradient italic">Sri Shyam Yantra?</span>
                     </h2>
 
                     <div className="w-20 h-[1px] bg-gold-gradient mx-auto mb-10 opacity-30"></div>
 
-                    <p className="text-stone-100 text-xl md:text-3xl leading-relaxed font-serif italic font-light max-w-5xl tracking-wide mx-auto">
+                    <p className="text-stone-100 text-xl md:text-3xl leading-relaxed italic font-light max-w-5xl tracking-wide mx-auto">
                         "The Sri Shyam Yantra is a <span className="text-[#F5D76E] font-bold">sacred geometric instrument</span> authorized by <span className="text-[#F5D76E] font-bold">10,000 years of Vedic tradition</span>, meticulously ritualized over <span className="text-[#F5D76E] font-bold">45 days</span> to serve as a conduit for the infinite grace of Shyam Baba."
                     </p>
                 </motion.div>
@@ -82,7 +82,7 @@ const AboutSection = () => {
 
                             {/* Content Alignment Area */}
                             <div className="flex flex-col gap-3 items-center min-h-[140px]">
-                                <h3 className="text-[#F5D76E] text-xl md:text-2xl font-serif font-bold tracking-tight text-glow h-8 flex items-center">
+                                <h3 className="text-[#F5D76E] text-xl md:text-2xl font-bold tracking-tight text-glow h-8 flex items-center">
                                     {item.title}
                                 </h3>
 
@@ -92,7 +92,7 @@ const AboutSection = () => {
                                     {item.sub}
                                 </span>
 
-                                <p className="text-stone-200 text-base md:text-lg leading-relaxed max-w-[280px] font-serif italic font-light">
+                                <p className="text-stone-200 text-base md:text-lg leading-relaxed max-w-[280px] italic font-light">
                                     {item.desc}
                                 </p>
                             </div>

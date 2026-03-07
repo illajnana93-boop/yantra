@@ -70,7 +70,7 @@ const Hero = () => {
                         </motion.h1>
                         <motion.h2
                             variants={itemVariants}
-                            className="text-3xl md:text-4xl lg:text-5xl font-serif text-gold-gradient italic"
+                            className="text-3xl md:text-4xl lg:text-5xl text-gold-gradient italic"
                         >
                             Sacred Yantra
                         </motion.h2>
@@ -86,7 +86,7 @@ const Hero = () => {
 
                     <motion.p
                         variants={itemVariants}
-                        className="text-stone-200 text-lg md:text-xl lg:text-2xl leading-relaxed font-serif italic font-light max-w-md tracking-wide mx-auto md:mx-0"
+                        className="text-stone-200 text-lg md:text-xl lg:text-2xl leading-relaxed italic font-light max-w-md tracking-wide mx-auto md:mx-0"
                     >
                         Experience the ethereal protection of Khatu Shyam Baba through this spiritually activated divine yantra.
                     </motion.p>
