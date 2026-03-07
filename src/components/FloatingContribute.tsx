@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { FaHandHoldingHeart, FaWhatsapp, FaTimes } from 'react-icons/fa';
-import { FaLandmark } from 'react-icons/fa6';
 
 const FloatingContribute = () => {
     const [isHovered, setIsHovered] = useState(false);
