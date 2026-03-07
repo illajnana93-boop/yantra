@@ -83,9 +83,19 @@ const DailyGuidance = () => {
                             </div>
 
                             <div className="relative w-[280px] h-[280px] md:w-[420px] md:h-[420px] mx-auto mb-16 mt-12 flex items-center justify-center">
-                                {/* Orbit rings perfectly matching the circle */}
-                                <div className="absolute inset-0 border border-[#D4AF37]/30 rounded-full animate-[spin_80s_linear_infinite] shadow-[0_0_30px_rgba(212,175,55,0.1)_inset]"></div>
-                                <div className="absolute inset-6 md:inset-10 border border-[#00A8CC]/20 rounded-full border-dashed animate-[spin_50s_linear_infinite_reverse]"></div>
+                                {/* Glowing Outer Orbit Ring */}
+                                <div className="absolute inset-0 border-[1.5px] border-[#D4AF37]/20 rounded-full animate-[spin_40s_linear_infinite] shadow-[0_0_40px_rgba(212,175,55,0.15)_inset]">
+                                    <div className="absolute -top-[1.5px] left-1/2 w-3 h-3 bg-[#D4AF37] rounded-full shadow-[0_0_15px_#D4AF37,0_0_30px_#FFFFFF] -translate-x-1/2"></div>
+                                    <div className="absolute top-1/2 -right-[1.5px] w-1.5 h-1.5 bg-[#00E5FF] rounded-full shadow-[0_0_10px_#00E5FF] -translate-y-1/2"></div>
+                                </div>
+
+                                {/* Dashed Inner Orbit Ring */}
+                                <div className="absolute inset-6 md:inset-10 border border-[#00A8CC]/30 rounded-full border-dashed animate-[spin_25s_linear_infinite_reverse]">
+                                    <div className="absolute -bottom-[1px] left-1/4 w-2 h-2 bg-[#F5D76E] rounded-full shadow-[0_0_12px_#F5D76E]"></div>
+                                </div>
+
+                                {/* Deep Inner Core Aura */}
+                                <div className="absolute inset-16 md:inset-20 border border-[#D4AF37]/10 rounded-full animate-[spin_60s_linear_infinite] bg-[#D4AF37]/[0.02]"></div>
 
                                 {/* Center Element */}
                                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 md:w-36 md:h-36 rounded-full border border-[#D4AF37]/50 bg-gradient-to-br from-[#081629] to-[#040C1A] flex flex-col items-center justify-center shadow-[0_0_40px_rgba(212,175,55,0.4)] z-10 transition-all duration-300">
