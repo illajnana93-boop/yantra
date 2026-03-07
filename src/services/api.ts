@@ -32,4 +32,21 @@ export const placeOrder = async (payload: OrderRequest): Promise<OrderResponse> 
     return data
 }
 
+// --- Spiritual Guidance ---
+export interface GuidanceResponse {
+    current_date: string;
+    description: string;
+    lucky_number: string;
+    lucky_time: string;
+    color: string;
+    mood: string;
+    rahu_kaal: string;
+    sign: string;
+}
+
+export const getSpiritualGuidance = async (sign: string): Promise<GuidanceResponse> => {
+    const { data } = await api.get<GuidanceResponse>(`/spiritual-guidance?sign=${sign}`)
+    return data
+}
+
 export default api

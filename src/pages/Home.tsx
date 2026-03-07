@@ -6,6 +6,7 @@ import AboutSection from '../components/AboutSection';
 import UseSection from '../components/UseSection';
 import Footer from '../components/Footer';
 import FloatingContribute from '../components/FloatingContribute';
+import DailyGuidance from '../components/DailyGuidance';
 
 // Lazy load heavy components
 const TempleVision = lazy(() => import('../components/TempleVision'));
@@ -13,7 +14,7 @@ const GurujiHighlight = lazy(() => import('../components/GurujiHighlight'));
 const Testimonials = lazy(() => import('../components/Testimonials'));
 
 const DivineLoader = () => (
-    <div className="w-full py-20 flex flex-col items-center justify-center space-y-4">
+    <div className="w-full py-20 flex flex-col items-center justify-center space-y-4 bg-[#0A1F3C]">
         <div className="w-12 h-12 border-2 border-[#D4AF37]/30 border-t-[#D4AF37] rounded-full animate-spin"></div>
         <p className="text-[#D4AF37]/60 text-xs uppercase tracking-widest font-serif italic">Loading Divine Presence...</p>
     </div>
@@ -28,6 +29,8 @@ const Home = () => {
             <ContributionCard />
             <AboutSection />
             <UseSection />
+
+            <DailyGuidance />
 
             <Suspense fallback={<DivineLoader />}>
                 <TempleVision />

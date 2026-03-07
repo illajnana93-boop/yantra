@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useContribution } from '../context/ContributionContext';
 import { FaOm } from 'react-icons/fa';
-import { FaHandHoldingHeart } from 'react-icons/fa6';
+import { GiLotus } from 'react-icons/gi';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -124,28 +124,28 @@ const Navbar = () => {
                 {/* Divider */}
                 <div className="h-6 w-[1px] bg-[#D4AF37]/20" />
 
-                {/* Contribute cart button — single, clean */}
+                {/* Daily Spiritual button — single, clean */}
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => handleLinkClick('/#product')}
+                    onClick={() => handleLinkClick('/#daily-spiritual')}
                     className="relative flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/10 text-[#F5D76E] hover:bg-[#D4AF37]/20 transition-all interactive"
-                    aria-label="Contribute"
+                    aria-label="Daily Spiritual"
                 >
-                    <FaHandHoldingHeart className="w-4 h-4" />
-                    <span className="text-[11px] font-black uppercase tracking-[0.18em]">Contribute</span>
+                    <GiLotus className="w-5 h-5 text-[#F5D76E]" />
+                    <span className="text-[11px] font-black uppercase tracking-[0.18em] text-[#F5D76E]">Daily Spiritual</span>
                 </motion.button>
             </div>
 
             {/* ── Mobile: right side icons ── */}
             <div className="lg:hidden flex items-center gap-3 z-[10001]">
-                {/* Mobile contribute icon */}
+                {/* Mobile Daily Spiritual icon */}
                 <motion.button
                     whileTap={{ scale: 0.9 }}
-                    onClick={() => handleLinkClick('/#product')}
+                    onClick={() => handleLinkClick('/#daily-spiritual')}
                     className="relative w-9 h-9 rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#F5D76E] flex items-center justify-center interactive"
                 >
-                    <FaHandHoldingHeart className="w-4 h-4" />
+                    <GiLotus className="w-5 h-5 text-[#F5D76E]" />
                 </motion.button>
 
                 {/* Hamburger */}
@@ -212,11 +212,11 @@ const Navbar = () => {
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.45 }}
-                                onClick={() => handleLinkClick('/#product')}
+                                onClick={() => handleLinkClick('/#daily-spiritual')}
                                 className="mt-10 flex items-center gap-3 px-12 py-4 btn-gold-royal rounded-full text-xs font-black tracking-[0.2em] shadow-2xl w-full max-w-[280px] justify-center relative"
                             >
-                                <FaHandHoldingHeart className="w-4 h-4" />
-                                Offer Contribution
+                                <GiLotus className="w-5 h-5" />
+                                Daily Spiritual
                                 {totalCount > 0 && (
                                     <span className="absolute -top-2 -right-2 min-w-[20px] h-[20px] rounded-full bg-[#060f1e] text-[#F5D76E] text-[9px] font-black flex items-center justify-center px-1 border border-[#D4AF37]/50">
                                         {totalCount}
