@@ -50,8 +50,14 @@ const UseSection = () => {
                         whileHover={{ y: -5 }}
                         className="glass-card p-8 md:p-10 text-center group transition-all duration-500 interactive relative overflow-hidden"
                     >
-                        <div className="text-4xl md:text-5xl mb-6 filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)] group-hover:scale-105 transition-transform duration-500">
-                            {use.icon}
+                        <div className="flex justify-center mb-6">
+                            {use.icon === "🕉️" ? (
+                                <img src="/om.png" alt="Om" className="w-12 h-12 md:w-16 h-16 object-contain filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)] group-hover:scale-105 transition-all duration-500" />
+                            ) : (
+                                <div className="text-4xl md:text-5xl filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)] group-hover:scale-105 transition-transform duration-500">
+                                    {use.icon}
+                                </div>
+                            )}
                         </div>
 
                         <h3 className="text-white text-xl md:text-2xl mb-4 tracking-wide group-hover:text-gold-400 transition-colors">

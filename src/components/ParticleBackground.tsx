@@ -1,9 +1,37 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ParticleBackground = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [isInputFocused, setIsInputFocused] = useState(false);
+    const [isFormActive, setIsFormActive] = useState(false);
 
     useEffect(() => {
+        const handleFocus = (e: FocusEvent) => {
+            const target = e.target as HTMLElement;
+            if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT') {
+                setIsInputFocused(true);
+            }
+        };
+
+        const handleBlur = () => {
+            setIsInputFocused(false);
+        };
+
+        // Also track the body class for full-screen forms
+        const checkBodyClass = () => {
+            setIsFormActive(document.body.classList.contains('sacred-form-active'));
+        };
+
+        // MutationObserver to detect when 'sacred-form-active' is added/removed from body
+        const observer = new MutationObserver(checkBodyClass);
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+        // Initial check
+        checkBodyClass();
+
+        window.addEventListener('focusin', handleFocus);
+        window.addEventListener('focusout', handleBlur);
+
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -83,14 +111,24 @@ const ParticleBackground = () => {
 
         const handleMouseMove = (e: MouseEvent) => {
             // Spawn multiple bubbles exactly at cursor each frame it moves
+            if (isInputFocused || isFormActive) return;
+
+            const target = e.target as HTMLElement;
+            if (target.closest('input, textarea, select')) return;
+
             for (let i = 0; i < 4; i++) {
                 particles.push(new Particle(e.clientX, e.clientY));
             }
         };
 
         const handleTouchMove = (e: TouchEvent) => {
+            if (isInputFocused || isFormActive) return;
+
             if (e.touches.length > 0) {
                 const touch = e.touches[0];
+                const target = touch.target as HTMLElement;
+                if (target.closest('input, textarea, select')) return;
+
                 for (let i = 0; i < 3; i++) {
                     particles.push(new Particle(touch.clientX, touch.clientY));
                 }
@@ -123,14 +161,17 @@ const ParticleBackground = () => {
             window.removeEventListener('resize', resizeCanvas);
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('touchmove', handleTouchMove);
+            window.removeEventListener('focusin', handleFocus);
+            window.removeEventListener('focusout', handleBlur);
+            observer.disconnect();
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [isInputFocused, isFormActive]);
 
     return (
         <canvas
             ref={canvasRef}
-            className="fixed top-0 left-0 w-full h-full pointer-events-none z-[100]"
+            className={`fixed top-0 left-0 w-full h-full pointer-events-none z-[100] transition-opacity duration-1000 ${(isInputFocused || isFormActive) ? 'opacity-0' : 'opacity-100'}`}
         />
     );
 };

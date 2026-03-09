@@ -1,7 +1,9 @@
+import { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
-import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
+
+const Testimonials = lazy(() => import('../components/Testimonials'));
 
 const SacredGuide = () => {
     return (
@@ -100,10 +102,16 @@ const SacredGuide = () => {
                                     transition={{ delay: index * 0.1 }}
                                     className="flex flex-col md:flex-row gap-4 md:gap-8 items-center md:items-start group text-center md:text-left"
                                 >
-                                    <span className="text-3xl md:text-4xl filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)]">{item.icon}</span>
+                                    <div className="flex-shrink-0">
+                                        {item.icon === "🕉️" ? (
+                                            <img src="/om.png" alt="Om" className="w-10 h-10 md:w-12 h-12 object-contain filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)] group-hover:scale-105 transition-all duration-500" />
+                                        ) : (
+                                            <span className="text-3xl md:text-4xl filter drop-shadow-[0_0_10px_rgba(212,175,55,0.3)]">{item.icon}</span>
+                                        )}
+                                    </div>
                                     <div>
-                                        <h3 className="text-white font-bold text-lg md:text-xl mb-1 md:mb-2 group-hover:text-gold-gradient transition-all">{item.title}</h3>
-                                        <p className="text-stone-200 text-lg md:text-xl leading-relaxed tracking-wide italic font-light">{item.desc}</p>
+                                        <h3 className="text-white font-bold text-lg md:text-xl mb-1 md:mb-2 group-hover:text-[#F5D76E] tracking-tight transition-all">{item.title}</h3>
+                                        <p className="text-stone-200 text-base md:text-lg leading-relaxed tracking-wide italic font-light">{item.desc}</p>
                                     </div>
                                 </motion.div>
                             ))}
@@ -162,7 +170,9 @@ const SacredGuide = () => {
                 </div>
             </section>
 
-            <Testimonials />
+            <Suspense fallback={<div className="w-full py-20 flex justify-center"><div className="w-12 h-12 border-2 border-[#D4AF37]/30 border-t-[#D4AF37] rounded-full animate-spin"></div></div>}>
+                <Testimonials />
+            </Suspense>
             <Footer />
         </div>
     );

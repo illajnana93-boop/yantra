@@ -43,7 +43,7 @@ export default function GurujiCTA() {
                             boxShadow: '0 0 0 6px rgba(198,167,94,0.07)',
                         }}
                     >
-                        🕉️
+                        <img src="/om.png" alt="Om" className="w-10 h-10 object-contain filter drop-shadow-md" />
                     </div>
 
                     <p

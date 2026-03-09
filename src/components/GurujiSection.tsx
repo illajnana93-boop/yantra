@@ -103,7 +103,7 @@ export default function GurujiSection() {
                                 marginBottom: '0.75rem',
                             }}
                         >
-                            🕉️
+                            <img src="/om.png" alt="Om" className="w-12 h-12 object-contain" />
                         </div>
                         <p style={{ fontFamily: 'Cinzel Decorative, serif', color: '#f6f1e8', fontSize: '0.78rem', marginBottom: 2 }}>Guruji</p>
                         <p style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic', color: '#c6a75e', fontSize: '0.72rem' }}>Sri Shyam Yantra</p>

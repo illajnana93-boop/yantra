@@ -49,4 +49,50 @@ export const getSpiritualGuidance = async (sign: string): Promise<GuidanceRespon
     return data
 }
 
+export interface ExtendedHoroscopeResponse {
+    horoscope: string;
+    date?: string;
+    week?: string;
+    month?: string;
+    year?: string;
+}
+
+export const getExtendedHoroscope = async (sign: string, period: 'weekly' | 'monthly' | 'yearly'): Promise<ExtendedHoroscopeResponse> => {
+    const { data } = await api.get<ExtendedHoroscopeResponse>(`/extended-horoscope?sign=${sign}&period=${period}`)
+    return data
+}
+
+// --- Kundli ---
+export interface KundliRequest {
+    dob: string;
+    tob: string;
+    pob: string;
+    latitude?: number;
+    longitude?: number;
+}
+
+export interface KundliResponse {
+    message: string;
+    data: any;
+}
+
+export const generateKundli = async (payload: KundliRequest, userId: string): Promise<KundliResponse> => {
+    const { data } = await api.post<KundliResponse>('/generate-kundli', payload, {
+        headers: { 'user-id': userId }
+    })
+    return data
+}
+
+export const getUserKundli = async (userId: string): Promise<any> => {
+    const { data } = await api.get<any>('/user-kundli', {
+        headers: { 'user-id': userId }
+    })
+    return data
+}
+
+export const getTodayPanchang = async (lat: number, lon: number): Promise<any> => {
+    const { data } = await api.get<any>(`/today-panchang?lat=${lat}&lon=${lon}`)
+    return data
+}
+
 export default api

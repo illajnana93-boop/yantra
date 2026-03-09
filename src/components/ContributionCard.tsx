@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { useContribution } from '../context/ContributionContext';
+import { useAuth } from '../context/AuthContext';
 import { FaLandmark, FaStar, FaCheckCircle, FaTruck } from 'react-icons/fa';
 import { FaHandsPraying, FaGem } from 'react-icons/fa6';
 
@@ -30,6 +31,7 @@ const offerings = [
 const DEVOTEE_COUNT = 84;
 
 const ContributionCard = () => {
+    const { user, openAuthModal } = useAuth();
     const [quantities, setQuantities] = useState<{ [key: number]: number }>({ 1: 1, 2: 1 });
     const [added, setAdded] = useState<number | null>(null);
     const [showThankYou, setShowThankYou] = useState(false);
@@ -39,6 +41,11 @@ const ContributionCard = () => {
         setQuantities(prev => ({ ...prev, [id]: Math.max(1, prev[id] + delta) }));
 
     const handleContribute = (offering: typeof offerings[0]) => {
+        if (!user) {
+            openAuthModal();
+            return;
+        }
+
         addItem({ id: offering.id, weight: offering.weight, price: offering.price }, quantities[offering.id]);
         setAdded(offering.id);
         setTimeout(() => setAdded(null), 2000);
@@ -169,73 +176,76 @@ const ContributionCard = () => {
                                         ))}
                                     </ul>
 
-                                    {/* Amount */}
-                                    <div className="text-center mb-6">
-                                        <span className="text-[#F5D76E] text-[11px] uppercase tracking-[0.3em] font-bold block mb-1">
-                                            Sacred Contribution
-                                        </span>
-                                        <span className="text-gold-gradient font-black text-5xl md:text-6xl">
-                                            ₹{(offering.price * quantities[offering.id]).toLocaleString()}
-                                        </span>
-                                        {quantities[offering.id] > 1 && (
-                                            <span className="text-stone-400 text-sm block mt-1">
-                                                ₹{offering.price.toLocaleString()} × {quantities[offering.id]}
+                                    {/* Action Area - Pushed to bottom */}
+                                    <div className="mt-auto">
+                                        {/* Amount */}
+                                        <div className="text-center mb-6">
+                                            <span className="text-[#F5D76E] text-[11px] uppercase tracking-[0.3em] font-bold block mb-1">
+                                                Sacred Contribution
                                             </span>
-                                        )}
-                                    </div>
-
-                                    {/* Qty selector */}
-                                    <div className="flex items-center justify-center gap-5 mb-6">
-                                        <button
-                                            onClick={() => updateQty(offering.id, -1)}
-                                            className="w-10 h-10 rounded-full border border-[#D4AF37]/30 text-[#D4AF37] text-xl hover:bg-[#D4AF37]/10 transition-all interactive flex items-center justify-center"
-                                        >−</button>
-                                        <span className="text-[#F5D76E] font-black text-3xl min-w-[3rem] text-center">
-                                            {quantities[offering.id]}
-                                        </span>
-                                        <button
-                                            onClick={() => updateQty(offering.id, 1)}
-                                            className="w-10 h-10 rounded-full border border-[#D4AF37]/30 text-[#D4AF37] text-xl hover:bg-[#D4AF37]/10 transition-all interactive flex items-center justify-center"
-                                        >+</button>
-                                    </div>
-
-                                    {/* CTA */}
-                                    <motion.button
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.97 }}
-                                        onClick={() => handleContribute(offering)}
-                                        className="btn-gold-royal w-full py-4 rounded-full font-black text-sm md:text-base tracking-[0.15em] interactive shadow-xl relative overflow-hidden"
-                                    >
-                                        <AnimatePresence mode="wait">
-                                            {added === offering.id ? (
-                                                <motion.span
-                                                    key="added"
-                                                    initial={{ opacity: 0, y: 8 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, y: -8 }}
-                                                    className="flex items-center justify-center gap-2"
-                                                >
-                                                    <FaHandsPraying className="text-lg" /> Jai Shri Shyam!
-                                                </motion.span>
-                                            ) : (
-                                                <motion.span
-                                                    key="contribute"
-                                                    initial={{ opacity: 0, y: 8 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, y: -8 }}
-                                                    className="flex items-center justify-center gap-2"
-                                                >
-                                                    <FaCheckCircle className="text-base" /> Offer My Contribution
-                                                </motion.span>
+                                            <span className="text-gold-gradient font-black text-5xl md:text-6xl">
+                                                ₹{(offering.price * quantities[offering.id]).toLocaleString()}
+                                            </span>
+                                            {quantities[offering.id] > 1 && (
+                                                <span className="text-stone-400 text-sm block mt-1">
+                                                    ₹{offering.price.toLocaleString()} × {quantities[offering.id]}
+                                                </span>
                                             )}
-                                        </AnimatePresence>
-                                    </motion.button>
+                                        </div>
 
-                                    <p className="text-center text-[#F5D76E] text-[10px] uppercase tracking-[0.4em] font-bold mt-4 flex items-center justify-center gap-2">
-                                        <FaHandsPraying className="text-xs" /> Baba's Grace
-                                        <span className="opacity-40">•</span>
-                                        <FaTruck className="text-xs" /> Free Delivery
-                                    </p>
+                                        {/* Qty selector */}
+                                        <div className="flex items-center justify-center gap-5 mb-6">
+                                            <button
+                                                onClick={() => updateQty(offering.id, -1)}
+                                                className="w-10 h-10 rounded-full border border-[#D4AF37]/30 text-[#D4AF37] text-xl hover:bg-[#D4AF37]/10 transition-all interactive flex items-center justify-center"
+                                            >−</button>
+                                            <span className="text-[#F5D76E] font-black text-3xl min-w-[3rem] text-center">
+                                                {quantities[offering.id]}
+                                            </span>
+                                            <button
+                                                onClick={() => updateQty(offering.id, 1)}
+                                                className="w-10 h-10 rounded-full border border-[#D4AF37]/30 text-[#D4AF37] text-xl hover:bg-[#D4AF37]/10 transition-all interactive flex items-center justify-center"
+                                            >+</button>
+                                        </div>
+
+                                        {/* CTA */}
+                                        <motion.button
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.97 }}
+                                            onClick={() => handleContribute(offering)}
+                                            className="btn-gold-royal w-full py-4 rounded-full font-black text-sm md:text-base tracking-[0.15em] interactive shadow-xl relative overflow-hidden"
+                                        >
+                                            <AnimatePresence mode="wait">
+                                                {added === offering.id ? (
+                                                    <motion.span
+                                                        key="added"
+                                                        initial={{ opacity: 0, y: 8 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        exit={{ opacity: 0, y: -8 }}
+                                                        className="flex items-center justify-center gap-2"
+                                                    >
+                                                        <FaHandsPraying className="text-lg" /> Jai Shri Shyam!
+                                                    </motion.span>
+                                                ) : (
+                                                    <motion.span
+                                                        key="contribute"
+                                                        initial={{ opacity: 0, y: 8 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        exit={{ opacity: 0, y: -8 }}
+                                                        className="flex items-center justify-center gap-2"
+                                                    >
+                                                        <FaCheckCircle className="text-base" /> Offer My Contribution
+                                                    </motion.span>
+                                                )}
+                                            </AnimatePresence>
+                                        </motion.button>
+
+                                        <p className="text-center text-[#F5D76E] text-[10px] uppercase tracking-[0.4em] font-bold mt-4 flex items-center justify-center gap-2">
+                                            <FaHandsPraying className="text-xs" /> Baba's Grace
+                                            <span className="opacity-40">•</span>
+                                            <FaTruck className="text-xs" /> Free Delivery
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>

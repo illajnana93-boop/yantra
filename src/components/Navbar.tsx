@@ -2,12 +2,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useContribution } from '../context/ContributionContext';
-import { FaOm } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
+import { FaOm, FaUser } from 'react-icons/fa';
 import { GiLotus } from 'react-icons/gi';
 
 const Navbar = () => {
+    const { user, openAuthModal, signOut } = useAuth();
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [showUserMenu, setShowUserMenu] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const { totalCount } = useContribution();
@@ -54,6 +57,11 @@ const Navbar = () => {
 
     const handleLinkClick = (path: string) => {
         setMobileMenuOpen(false);
+        if (path.includes('#daily-spiritual') && !user) {
+            openAuthModal();
+            return;
+        }
+
         if (path.startsWith('/#')) {
             const id = path.substring(2);
             if (location.pathname === '/') {
@@ -72,6 +80,7 @@ const Navbar = () => {
     };
 
     return (
+        // ... rest of the nav until desktop section
         <motion.nav
             initial={{ y: -100 }}
             animate={{ y: 0 }}
@@ -84,22 +93,21 @@ const Navbar = () => {
             {/* ── Logo ── */}
             <Link
                 to="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-4 group relative z-[10001] interactive"
+                className="flex items-center gap-3 md:gap-4 group interactive"
             >
-                <div className="relative">
-                    <div className="absolute inset-0 bg-[#D4AF37] rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity" />
+                <div className="relative w-12 h-12 md:w-14 md:h-14 flex items-center justify-center overflow-hidden rounded-full border border-[#D4AF37]/30 bg-[#081629]/50 backdrop-blur-sm shadow-[0_0_20px_rgba(212,175,55,0.1)]">
+                    <div className="absolute inset-0 bg-[#D4AF37] opacity-0 group-hover:opacity-10 transition-opacity" />
                     <img
                         src="/logo.png"
                         alt="Sri Shyam Logo"
-                        className="h-12 md:h-14 w-auto relative z-10 transition-transform duration-500 group-hover:scale-105"
+                        className="h-[160%] w-auto max-w-none relative z-10 transition-transform duration-500 group-hover:scale-110 transform -translate-y-[2%]"
                     />
                 </div>
-                <div className="flex flex-col leading-none">
-                    <span className="text-white text-lg md:text-xl font-serif font-bold tracking-[0.2em] text-glow">
+                <div className="flex flex-col leading-tight">
+                    <span className="text-white text-base md:text-lg font-serif font-bold tracking-[0.2em] text-glow">
                         SRI SHYAM
                     </span>
-                    <span className="text-[#F5D76E] text-[10px] uppercase tracking-[0.45em] font-black opacity-80 mt-1">
+                    <span className="text-[#F5D76E] text-[8px] md:text-[9px] uppercase tracking-[0.45em] font-black opacity-80">
                         Divine Yantra
                     </span>
                 </div>
@@ -130,15 +138,57 @@ const Navbar = () => {
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleLinkClick('/#daily-spiritual')}
                     className="relative flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/10 text-[#F5D76E] hover:bg-[#D4AF37]/20 transition-all interactive"
-                    aria-label="Daily Spiritual"
+                    aria-label="Today’s Blessing"
                 >
                     <GiLotus className="w-5 h-5 text-[#F5D76E]" />
-                    <span className="text-[11px] font-black uppercase tracking-[0.18em] text-[#F5D76E]">Daily Spiritual</span>
+                    <span className="text-[11px] font-black uppercase tracking-[0.18em] text-[#F5D76E]">Today’s Blessing</span>
                 </motion.button>
+
+                {/* User Menu (Only if logged in) */}
+                {user && (
+                    <div className="relative">
+                        <button
+                            onClick={() => setShowUserMenu(!showUserMenu)}
+                            className="w-10 h-10 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 flex items-center justify-center text-[#F5D76E] hover:bg-[#D4AF37]/20 transition-all interactive"
+                        >
+                            <FaUser className="w-4 h-4" />
+                        </button>
+                        {showUserMenu && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="absolute top-12 right-0 w-48 bg-[#040515] border border-[#D4AF37]/30 rounded-xl py-2 shadow-2xl z-[10002]"
+                            >
+                                <div className="px-4 py-2 border-b border-white/10 mb-1">
+                                    <p className="text-[#F5D76E] text-[10px] uppercase tracking-widest font-bold">Devotee</p>
+                                    <p className="text-white text-xs truncate font-medium">{user.email}</p>
+                                </div>
+                                <button
+                                    onClick={() => { signOut(); setShowUserMenu(false); }}
+                                    className="w-full text-left px-4 py-2 text-stone-300 hover:text-white hover:bg-white/5 text-xs transition-all"
+                                >
+                                    Sign Out
+                                </button>
+                            </motion.div>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* ── Mobile: right side icons ── */}
             <div className="lg:hidden flex items-center gap-3 z-[10001]">
+                {/* Mobile User icon (Only if logged in) */}
+                {user && (
+                    <motion.button
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => signOut()}
+                        className="relative w-9 h-9 rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#F5D76E] flex items-center justify-center interactive"
+                    >
+                        <FaUser className="w-4 h-4 text-[#F5D76E]" />
+                        <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#040515]" />
+                    </motion.button>
+                )}
+
                 {/* Mobile Daily Spiritual icon */}
                 <motion.button
                     whileTap={{ scale: 0.9 }}
@@ -216,7 +266,7 @@ const Navbar = () => {
                                 className="mt-10 flex items-center gap-3 px-12 py-4 btn-gold-royal rounded-full text-xs font-black tracking-[0.2em] shadow-2xl w-full max-w-[280px] justify-center relative"
                             >
                                 <GiLotus className="w-5 h-5" />
-                                Daily Spiritual
+                                Today’s Blessing
                                 {totalCount > 0 && (
                                     <span className="absolute -top-2 -right-2 min-w-[20px] h-[20px] rounded-full bg-[#060f1e] text-[#F5D76E] text-[9px] font-black flex items-center justify-center px-1 border border-[#D4AF37]/50">
                                         {totalCount}

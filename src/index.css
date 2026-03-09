@@ -59,12 +59,12 @@ h4,
 }
 
 /* --- Core Surfaces --- */
-.bg-navy-gradient {
+@utility bg-navy-gradient {
   background: linear-gradient(180deg, var(--navy-base), var(--navy-dark));
 }
 
 /* --- Gold Styling --- */
-.text-gold-gradient {
+@utility text-gold-gradient {
   background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -73,7 +73,7 @@ h4,
   animation: shine 6s linear infinite;
 }
 
-.bg-gold-gradient {
+@utility bg-gold-gradient {
   background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
 }
 
@@ -86,7 +86,7 @@ h4,
 }
 
 /* --- Button Styling --- */
-.btn-gold-royal {
+@utility btn-gold-royal {
   background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
   color: var(--navy-dark);
   font-weight: 700;
@@ -126,4 +126,15 @@ h4,
 
 .hindi-heading {
   font-weight: 800;
+}
+
+.sign-icon {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: shine 6s linear infinite;
+  display: inline-block;
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
 }

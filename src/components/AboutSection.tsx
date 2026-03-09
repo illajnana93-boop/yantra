@@ -34,7 +34,7 @@ const AboutSection = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <div className="flex flex-col items-center gap-2 mb-4 md:mb-5">
-                        <span className="text-xl md:text-2xl filter drop-shadow-[0_0_10px_rgba(212,175,55,0.4)]">🕉️</span>
+                        <img src="/om.png" alt="Om" className="w-8 h-8 md:w-10 h-10 object-contain filter drop-shadow-[0_0_10px_rgba(212,175,55,0.4)]" />
                         <p className="text-gold-gradient text-[10px] md:text-[11px] uppercase font-bold tracking-[0.5em]">The Sacred Essence</p>
                     </div>
 

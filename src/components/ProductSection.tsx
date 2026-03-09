@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 const products = [
     {
@@ -20,11 +21,20 @@ const products = [
 ];
 
 const ProductSection = () => {
+    const { user, openAuthModal } = useAuth();
     const [quantities, setQuantities] = useState<{ [key: number]: number }>({ 1: 1, 2: 1 });
     const [showComingSoon, setShowComingSoon] = useState(false);
 
     const updateQuantity = (id: number, delta: number) => {
         setQuantities(prev => ({ ...prev, [id]: Math.max(1, prev[id] + delta) }));
+    };
+
+    const handleBuyClick = () => {
+        if (!user) {
+            openAuthModal();
+        } else {
+            setShowComingSoon(true);
+        }
     };
 
     return (
@@ -106,7 +116,7 @@ const ProductSection = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
-                                    onClick={() => setShowComingSoon(true)}
+                                    onClick={handleBuyClick}
                                     className="btn-gold-royal w-full py-4 md:py-5 text-sm md:text-base font-black rounded-full interactive shadow-xl"
                                 >
                                     Include in My Prayer
@@ -141,7 +151,9 @@ const ProductSection = () => {
                             <div className="absolute top-0 left-0 w-full h-1 bg-gold-gradient"></div>
                             <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#D4AF37]/10 rounded-full blur-3xl"></div>
 
-                            <div className="text-5xl md:text-6xl mb-6 filter drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">🕉️</div>
+                            <div className="flex justify-center mb-6">
+                                <img src="/om.png" alt="Om" className="w-12 h-12 md:w-16 h-16 object-contain filter drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]" />
+                            </div>
 
                             <h3 className="text-gold-gradient text-2xl md:text-3xl font-bold mb-4">Divine Grace Awaits</h3>
                             <div className="w-16 h-[1px] bg-[#D4AF37]/30 mx-auto mb-6"></div>
