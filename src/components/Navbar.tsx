@@ -33,6 +33,7 @@ const Navbar = () => {
 
     useEffect(() => {
         setMobileMenuOpen(false);
+        setShowUserMenu(false);
         if (location.hash) {
             const id = location.hash.substring(1);
             setTimeout(() => {
@@ -179,14 +180,35 @@ const Navbar = () => {
             <div className="lg:hidden flex items-center gap-3 z-[10001]">
                 {/* Mobile User icon (Only if logged in) */}
                 {user && (
-                    <motion.button
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => signOut()}
-                        className="relative w-9 h-9 rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#F5D76E] flex items-center justify-center interactive"
-                    >
-                        <FaUser className="w-4 h-4 text-[#F5D76E]" />
-                        <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#040515]" />
-                    </motion.button>
+                    <div className="relative">
+                        <motion.button
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => setShowUserMenu(!showUserMenu)}
+                            className="relative w-9 h-9 rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#F5D76E] flex items-center justify-center interactive"
+                        >
+                            <FaUser className="w-4 h-4 text-[#F5D76E]" />
+                            <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-[#040515]" />
+                        </motion.button>
+
+                        {showUserMenu && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                className="absolute top-12 right-0 w-44 bg-[#040515] border border-[#D4AF37]/30 rounded-xl py-2 shadow-2xl z-[10002]"
+                            >
+                                <div className="px-4 py-2 border-b border-white/10 mb-1 text-center">
+                                    <p className="text-[#F5D76E] text-[10px] uppercase tracking-widest font-bold">Devotee</p>
+                                    <p className="text-white text-[11px] truncate font-medium">{user.email}</p>
+                                </div>
+                                <button
+                                    onClick={() => { signOut(); setShowUserMenu(false); }}
+                                    className="w-full text-center px-4 py-2 text-stone-300 hover:text-white hover:bg-white/5 text-xs transition-all"
+                                >
+                                    Sign Out
+                                </button>
+                            </motion.div>
+                        )}
+                    </div>
                 )}
 
                 {/* Mobile Daily Spiritual icon */}
