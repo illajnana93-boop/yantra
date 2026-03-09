@@ -522,12 +522,17 @@ const DailyGuidance = () => {
                             exit={{ opacity: 0, scale: 0.95 }}
                             className="bg-[#081629]/80 backdrop-blur-xl border border-[#D4AF37]/20 p-10 md:p-16 rounded-[3rem] shadow-[0_0_50px_rgba(0,0,0,0.8)] max-w-5xl mx-auto"
                         >
-                            <div className="text-4xl text-[#00E5FF] mb-6 flex justify-center"><FaStarOfLife className="animate-pulse" /></div>
-                            <h3 className="text-white text-2xl mb-4 tracking-tight">Cosmic Calculation</h3>
-                            <div className="text-stone-300 mb-8 leading-relaxed">
-                                <p className="mb-6 opacity-80 uppercase text-[10px] tracking-[0.3em] font-bold">Based on your coordinates, your sign is:</p>
-                                <div className="flex flex-col items-center justify-center">
-                                    <span className="text-4xl md:text-6xl text-gold-gradient font-black tracking-tight text-center">
+                            <div className="flex flex-col items-center mb-10">
+                                <h3 className="text-white text-3xl font-serif tracking-[0.1em] mb-2 uppercase">Analysis Complete</h3>
+                                <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent"></div>
+                            </div>
+
+                            <div className="text-stone-300 mb-12 text-center">
+                                <p className="mb-8 opacity-60 uppercase text-[9px] tracking-[0.4em] font-black">Celestial alignment identifies your sign as:</p>
+                                <div className="relative py-8">
+                                    {/* Subtle glowing ring behind text */}
+                                    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-white/5 mx-auto w-[80%]"></div>
+                                    <span className="relative z-10 text-5xl md:text-7xl text-gold-gradient font-serif font-black tracking-widest px-8 bg-[#081629]">
                                         {calculatedSign}
                                     </span>
                                 </div>
@@ -685,23 +690,23 @@ const DailyGuidance = () => {
                                                     <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border text-2xl shadow-lg ${item.iconBg} ${item.iconColor}`}>
                                                         {item.icon}
                                                     </div>
-                                                    <div className="flex flex-col gap-1 items-start w-full px-1">
+                                                    <div className="flex flex-col gap-1 items-center w-full">
                                                         <p className="text-stone-400 text-[9px] uppercase tracking-[0.3em] font-black group-hover:text-stone-200 transition-colors w-full text-center mb-1">
                                                             {item.label}
                                                         </p>
                                                         {timeParts ? (
-                                                            <div className="w-full flex flex-col items-start gap-0.5 pl-1">
-                                                                <span className="text-[#F5D76E] text-sm font-bold font-mono tabular-nums tracking-tight leading-snug">
+                                                            <div className="w-full flex flex-col items-center gap-0.5">
+                                                                <span className="text-[#F5D76E] text-[13px] font-bold font-mono tabular-nums tracking-tight leading-snug text-center">
                                                                     {timeParts[0]?.trim()}
                                                                 </span>
                                                                 {timeParts[1] && (
-                                                                    <span className="text-[#F5D76E] text-sm font-bold font-mono tabular-nums tracking-tight leading-snug">
+                                                                    <span className="text-[#F5D76E] text-[13px] font-bold font-mono tabular-nums tracking-tight leading-snug text-center">
                                                                         {timeParts[1]?.trim()}
                                                                     </span>
                                                                 )}
                                                             </div>
                                                         ) : (
-                                                            <p className="text-[#F5D76E] text-sm md:text-base font-bold leading-tight break-words px-1 drop-shadow-sm font-serif w-full text-center">
+                                                            <p className="text-[#F5D76E] text-sm md:text-base font-bold leading-tight break-words drop-shadow-sm font-serif w-full text-center">
                                                                 {item.value || 'N/A'}
                                                             </p>
                                                         )}
@@ -935,7 +940,7 @@ const DailyGuidance = () => {
                                                                     { label: 'Nakshatra', val: panchangData.nakshatra?.[0]?.name || panchangData.nakshatra?.name || '—', icon: <FaStar /> },
                                                                     { label: 'Yoga', val: panchangData.yoga?.[0]?.name || panchangData.yoga?.name || '—', icon: <FaSun /> },
                                                                     { label: 'Karana', val: panchangData.karana?.[0]?.name || panchangData.karana?.name || '—', icon: <FaCaretUp /> },
-                                                                    { label: 'Rashi', val: calculatedSign || '—', icon: <FaStarOfLife /> },
+                                                                    { label: 'Rashi', val: panchangData.today_rashi || calculatedSign || '—', icon: <FaStarOfLife /> },
                                                                 ].map((item, idx) => (
                                                                     <li key={idx} className="flex justify-between items-center bg-white/[0.02] border border-white/5 p-4 rounded-2xl hover:bg-white/[0.05] transition-colors">
                                                                         <div className="flex items-center gap-4">
