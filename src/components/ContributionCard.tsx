@@ -1,10 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContribution } from '../context/ContributionContext';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
-import { FaLandmark, FaStar, FaCheckCircle, FaTruck, FaTimes, FaBoxOpen, FaScroll, FaSun, FaHeart, FaArchive, FaChevronDown, FaShoppingBag, FaPray } from 'react-icons/fa';
+import { FaLandmark, FaStar, FaCheckCircle, FaTruck, FaBoxOpen, FaScroll, FaSun, FaHeart, FaArchive, FaChevronDown, FaShoppingBag, FaPray } from 'react-icons/fa';
 import { FaHandsPraying, FaGem } from 'react-icons/fa6';
 
 const offerings = [
@@ -90,14 +90,6 @@ const ContributionCard = () => {
     const [quantities, setQuantities] = useState<{ [key: number]: number }>({ 1: 1, 2: 1 });
     const [added, setAdded] = useState<number | null>(null);
     const [showThankYou, setShowThankYou] = useState(false);
-    const [showDetailsModal, setShowDetailsModal] = useState(false);
-    const [selectedOffering, setSelectedOffering] = useState<typeof offerings[0] | null>(null);
-
-    // Form states
-    const [formName, setFormName] = useState('');
-    const [gotra, setGotra] = useState('');
-    const [city, setCity] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { addItem } = useContribution();
 
@@ -109,51 +101,15 @@ const ContributionCard = () => {
             openAuthModal();
             return;
         }
-        setSelectedOffering(offering);
-        setFormName(user.name || '');
-        setGotra('');
-        setCity('');
-        setShowDetailsModal(true);
-    };
+        
+        const qty = quantities[offering.id];
+        addItem({ id: offering.id, weight: offering.weight, price: offering.price }, qty);
+        setAdded(offering.id);
 
-    const submitContribution = async () => {
-        if (!selectedOffering || !user) return;
-        if (!formName || !gotra || !city) return;
-
-        setIsSubmitting(true);
-        try {
-            const qty = quantities[selectedOffering.id];
-            const { error } = await supabase.from('temple_contributions').insert({
-                user_id: user.id,
-                full_name: formName,
-                gotra: gotra,
-                city: city,
-                offering_id: selectedOffering.id,
-                offering_weight: selectedOffering.weight,
-                price: selectedOffering.price,
-                quantity: qty,
-                total_amount: selectedOffering.price * qty,
-                sqft_contribution: selectedOffering.sqft * qty
-            });
-
-            if (error) throw error;
-
-            // Success: Add to cart and navigate
-            addItem({ id: selectedOffering.id, weight: selectedOffering.weight, price: selectedOffering.price }, qty);
-            setAdded(selectedOffering.id);
-            setShowDetailsModal(false);
-
-            setTimeout(() => {
-                setAdded(null);
-                navigate('/checkout');
-            }, 800);
-
-        } catch (err) {
-            console.error("Error saving contribution:", err);
-            alert("Failed to save spiritual details. Please try again.");
-        } finally {
-            setIsSubmitting(false);
-        }
+        setTimeout(() => {
+            setAdded(null);
+            navigate('/checkout');
+        }, 800);
     };
 
     return (
@@ -420,97 +376,7 @@ const ContributionCard = () => {
                 </motion.div>
             </div>
 
-            {/* Details Modal */}
-            <AnimatePresence>
-                {showDetailsModal && (
-                    <div className="fixed inset-0 z-[10005] flex items-center justify-center p-4">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setShowDetailsModal(false)}
-                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
-                        />
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 30 }}
-                            className="relative w-full max-w-lg bg-[#f9f5ec] rounded-[3rem] p-10 md:p-14 overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8)]"
-                        >
-                            {/* Decorative Top Border */}
-                            <div className="absolute top-0 left-0 w-full h-2 bg-gold-gradient" />
 
-                            <button
-                                onClick={() => setShowDetailsModal(false)}
-                                className="absolute top-8 right-8 text-stone-400 hover:text-[#D4AF37] transition-colors"
-                            >
-                                <FaTimes size={20} />
-                            </button>
-
-                            <div className="text-center mb-10">
-                                <div className="flex justify-center mb-4">
-                                    <FaHandsPraying className="text-[#D4AF37] text-4xl animate-pulse" />
-                                </div>
-                                <h3 className="text-[#0A1F3C] text-2xl md:text-3xl font-serif font-black uppercase tracking-tight mb-2">Devotion details</h3>
-                                <div className="w-16 h-[2px] bg-gold-gradient mx-auto mb-4" />
-                                <p className="text-stone-500 text-[10px] uppercase tracking-[0.3em] font-black">For Sacred Entry in Temple Records</p>
-                            </div>
-
-                            <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <label className="text-[10px] uppercase tracking-widest font-black text-[#8B7355] ml-1">Full Name</label>
-                                    <input
-                                        type="text"
-                                        value={formName}
-                                        onChange={(e) => setFormName(e.target.value)}
-                                        placeholder="Full Name as in Records"
-                                        className="w-full bg-white border border-[#D4AF37]/20 rounded-2xl py-4 px-6 text-[#0A1F3C] outline-none focus:border-[#D4AF37] transition-all"
-                                    />
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] uppercase tracking-widest font-black text-[#8B7355] ml-1">Gotra</label>
-                                        <input
-                                            type="text"
-                                            value={gotra}
-                                            onChange={(e) => setGotra(e.target.value)}
-                                            placeholder="Ex: Bhardwaj"
-                                            className="w-full bg-white border border-[#D4AF37]/20 rounded-2xl py-4 px-6 text-[#0A1F3C] outline-none focus:border-[#D4AF37] transition-all"
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] uppercase tracking-widest font-black text-[#8B7355] ml-1">City</label>
-                                        <input
-                                            type="text"
-                                            value={city}
-                                            onChange={(e) => setCity(e.target.value)}
-                                            placeholder="Ex: Jaipur"
-                                            className="w-full bg-white border border-[#D4AF37]/20 rounded-2xl py-4 px-6 text-[#0A1F3C] outline-none focus:border-[#D4AF37] transition-all"
-                                        />
-                                    </div>
-                                </div>
-
-                                <button
-                                    onClick={submitContribution}
-                                    disabled={!formName || !gotra || !city || isSubmitting}
-                                    className="btn-gold-royal w-full py-5 rounded-2xl font-black text-sm tracking-[0.2em] shadow-xl disabled:opacity-50 disabled:cursor-not-allowed mt-4 flex items-center justify-center h-16"
-                                >
-                                    {isSubmitting ? (
-                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                                    ) : (
-                                        "PROCEED TO CHAKRA"
-                                    )}
-                                </button>
-                                
-                                <p className="text-center text-[9px] text-stone-400 italic">
-                                    "Your name and gotra will be inscribed in the sacred temple records."
-                                </p>
-                            </div>
-                        </motion.div>
-                    </div>
-                )}
-            </AnimatePresence>
 
             {/* Thank You Modal */}
             <AnimatePresence>

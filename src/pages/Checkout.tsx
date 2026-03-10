@@ -4,21 +4,73 @@ import { useNavigate } from 'react-router-dom';
 import { useContribution } from '../context/ContributionContext';
 import { 
     FaShieldAlt, FaLock, FaCheckCircle, FaTruck, FaCreditCard, FaLockOpen, FaUniversity,
-    FaMobileAlt, FaShoppingBag, FaUser, FaPhoneAlt, FaMapMarkerAlt
+    FaMobileAlt, FaShoppingBag, FaUser, FaPhoneAlt, FaMapMarkerAlt, FaScroll
 } from 'react-icons/fa';
 import { SiRazorpay } from 'react-icons/si';
+import { useAuth } from '../context/AuthContext';
+import { supabase } from '../lib/supabase';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const Checkout: React.FC = () => {
     const navigate = useNavigate();
+    const { user } = useAuth();
     const { items, clearItems } = useContribution();
     const [isLoading, setIsLoading] = useState(false);
+    const [showComingSoon, setShowComingSoon] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState<'cod' | 'online' | 'upi' | 'card' | 'netbanking' | 'razorpay'>('cod');
+    
+    // Devotee Information states
+    const [formData, setFormData] = useState({
+        fullName: '',
+        phone: '',
+        address: '',
+        gotra: '',
+        city: ''
+    });
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        
+        // Fetch known devotee details from Supabase
+        const fetchDevoteeDetails = async () => {
+            if (user) {
+                try {
+                    const { data, error } = await supabase
+                        .from('temple_contributions')
+                        .select('full_name, gotra, city')
+                        .eq('user_id', user.id)
+                        .order('created_at', { ascending: false })
+                        .limit(1);
+
+                    if (data && data.length > 0) {
+                        setFormData(prev => ({
+                            ...prev,
+                            fullName: data[0].full_name,
+                            gotra: data[0].gotra,
+                            city: data[0].city,
+                            phone: prev.phone || user.phone || ''
+                        }));
+                    } else if (user.name) {
+                        setFormData(prev => ({ 
+                            ...prev, 
+                            fullName: user.name,
+                            phone: prev.phone || user.phone || ''
+                        }));
+                    }
+                } catch (err) {
+                    console.error("Error fetching devotee details:", err);
+                }
+            }
+        };
+        fetchDevoteeDetails();
+    }, [user]);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
 
     const subtotal = items.reduce((acc, item) => acc + (item.price * item.qty), 0);
     const finalTotal = subtotal;
@@ -26,13 +78,110 @@ const Checkout: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
+        
         setTimeout(() => {
             setIsLoading(false);
-            alert('Divine Blessings! Your order has been placed successfully.');
-            clearItems();
-            navigate('/');
+            // All payment methods are currently leading to the "Coming Soon" screen
+            setShowComingSoon(true);
         }, 2000);
     };
+
+    if (showSuccess) {
+        return (
+            <div className="min-h-screen bg-[#040C1A] text-white flex flex-col relative overflow-hidden">
+                <Navbar />
+                <main className="flex-grow flex items-center justify-center pt-40 pb-20 px-6 text-center relative z-10">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="max-w-2xl w-full"
+                    >
+                        <div className="w-40 h-40 mb-10 relative mx-auto">
+                            <motion.div 
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: 'spring', damping: 10, stiffness: 100, delay: 0.2 }}
+                                className="absolute inset-0 bg-gold-gradient rounded-full blur-[30px] opacity-20"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <FaCheckCircle className="text-[#D4AF37] text-8xl drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]" />
+                            </div>
+                        </div>
+
+                        <h2 className="text-4xl md:text-5xl font-serif mb-6 uppercase tracking-[0.3em] text-[#D4AF37]">Order Successful</h2>
+                        <div className="w-24 h-px bg-gold-gradient mx-auto mb-10" />
+                        
+                        <p className="text-stone-400 mb-12 italic text-lg leading-relaxed max-w-lg mx-auto">
+                            "Divine Blessings! Your Cash on Delivery order has been placed successfully. 
+                            The sacred energy will reach your doorstep soon."
+                        </p>
+                        
+                        <button 
+                            onClick={() => navigate('/')}
+                            className="btn-gold-royal px-16 py-5 rounded-full text-[10px] font-black tracking-[0.4em] uppercase shadow-2xl hover:scale-105 transition-transform"
+                        >
+                            Back to Sacred Home
+                        </button>
+
+                        <p className="mt-12 text-stone-600 text-[9px] uppercase tracking-[0.3em] font-black">
+                             You will receive a confirmation message shortly.
+                        </p>
+                    </motion.div>
+                </main>
+                <Footer />
+            </div>
+        );
+    }
+
+    if (showComingSoon) {
+        return (
+            <div className="min-h-screen bg-[#040C1A] text-white flex flex-col relative overflow-hidden">
+                <Navbar />
+                <main className="flex-grow flex items-center justify-center pt-40 pb-20 px-6 text-center relative z-10">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="max-w-2xl w-full"
+                    >
+                        <div className="w-40 h-40 mb-10 relative mx-auto">
+                            <motion.div 
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                                className="absolute inset-0 border border-[#D4AF37]/20 rounded-full"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <SiRazorpay className="text-[#D4AF37] text-7xl opacity-20 animate-pulse" />
+                            </div>
+                        </div>
+
+                        <h2 className="text-4xl md:text-5xl font-serif mb-6 uppercase tracking-[0.3em] text-[#D4AF37]">Bridge Under Construction</h2>
+                        <div className="w-24 h-px bg-gold-gradient mx-auto mb-10" />
+                        
+                        <p className="text-stone-400 mb-12 italic text-lg leading-relaxed max-w-lg mx-auto">
+                            "The sacred digital gateway is being ritually purified for secure offerings. 
+                            Online payment integration (Razorpay) will be active soon."
+                        </p>
+                        
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+                            <button 
+                                onClick={() => setShowComingSoon(false)}
+                                className="w-full md:w-auto border border-[#D4AF37]/30 px-12 py-4 rounded-full text-[10px] font-black tracking-[0.3em] uppercase hover:bg-[#D4AF37]/5 transition-all"
+                            >
+                                Go Back
+                            </button>
+                            <button 
+                                onClick={() => { clearItems(); navigate('/'); }}
+                                className="w-full md:w-auto btn-gold-royal px-12 py-4 rounded-full text-[10px] font-black tracking-[0.3em] uppercase shadow-2xl"
+                            >
+                                Home of Devotion
+                            </button>
+                        </div>
+                    </motion.div>
+                </main>
+                <Footer />
+            </div>
+        );
+    }
 
     if (items.length === 0) {
         return (
@@ -112,25 +261,64 @@ const Checkout: React.FC = () => {
                                 Devotee Information
                             </h2>
                             <div className="grid md:grid-cols-2 gap-6 p-8 bg-[#081629]/40 border border-white/5 rounded-[2.5rem]">
-                                <div className="space-y-2">
+                                <div className="space-y-2 md:col-span-2">
                                     <p className="text-stone-500 text-[10px] uppercase font-black tracking-widest italic mb-1">Full name</p>
                                     <div className="relative group">
                                         <FaUser className="absolute left-6 top-1/2 -translate-y-1/2 text-stone-600 transition-colors group-focus-within:text-[#D4AF37]" />
-                                        <input type="text" placeholder="SHYAM BHAKT" className="w-full bg-[#040C1A] border border-white/5 rounded-2xl py-5 pl-14 pr-6 text-white text-xs font-black tracking-widest outline-none focus:border-[#D4AF37]/30 transition-all placeholder:text-stone-800" />
+                                        <input 
+                                            type="text" 
+                                            name="fullName"
+                                            value={formData.fullName}
+                                            onChange={handleInputChange}
+                                            placeholder="SHYAM BHAKT" 
+                                            required
+                                            className="w-full bg-[#040C1A] border border-white/5 rounded-2xl py-5 pl-14 pr-6 text-white text-xs font-black tracking-widest outline-none focus:border-[#D4AF37]/30 transition-all placeholder:text-stone-800" 
+                                        />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <p className="text-stone-500 text-[10px] uppercase font-black tracking-widest italic mb-1">Phone Number</p>
+                                    <p className="text-stone-500 text-[10px] uppercase font-black tracking-widest italic mb-1">Gotra</p>
                                     <div className="relative group">
-                                        <FaPhoneAlt className="absolute left-6 top-1/2 -translate-y-1/2 text-stone-600 transition-colors group-focus-within:text-[#D4AF37]" />
-                                        <input type="tel" placeholder="+91 XXXXX XXXXX" className="w-full bg-[#040C1A] border border-white/5 rounded-2xl py-5 pl-14 pr-6 text-white text-xs font-black tracking-widest outline-none focus:border-[#D4AF37]/30 transition-all placeholder:text-stone-800" />
+                                        <FaScroll className="absolute left-6 top-1/2 -translate-y-1/2 text-stone-600 transition-colors group-focus-within:text-[#D4AF37]" />
+                                        <input 
+                                            type="text" 
+                                            name="gotra"
+                                            value={formData.gotra}
+                                            onChange={handleInputChange}
+                                            placeholder="BHARDWAJ / KASHYAP" 
+                                            required
+                                            className="w-full bg-[#040C1A] border border-white/5 rounded-2xl py-5 pl-14 pr-6 text-white text-xs font-black tracking-widest outline-none focus:border-[#D4AF37]/30 transition-all placeholder:text-stone-800" 
+                                        />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <p className="text-stone-500 text-[10px] uppercase font-black tracking-widest italic mb-1">City</p>
+                                    <div className="relative group">
+                                        <FaMapMarkerAlt className="absolute left-6 top-1/2 -translate-y-1/2 text-stone-600 transition-colors group-focus-within:text-[#D4AF37]" />
+                                        <input 
+                                            type="text" 
+                                            name="city"
+                                            value={formData.city}
+                                            onChange={handleInputChange}
+                                            placeholder="JAIPUR / DELHI" 
+                                            required
+                                            className="w-full bg-[#040C1A] border border-white/5 rounded-2xl py-5 pl-14 pr-6 text-white text-xs font-black tracking-widest outline-none focus:border-[#D4AF37]/30 transition-all placeholder:text-stone-800" 
+                                        />
                                     </div>
                                 </div>
                                 <div className="space-y-2 md:col-span-2">
                                     <p className="text-stone-500 text-[10px] uppercase font-black tracking-widest italic mb-1">Delivery Address</p>
                                     <div className="relative group">
                                         <FaMapMarkerAlt className="absolute left-6 top-6 text-stone-600 transition-colors group-focus-within:text-[#D4AF37]" />
-                                        <textarea rows={3} placeholder="COMPLETE SACRED ADDRESS FOR DELIVERY" className="w-full bg-[#040C1A] border border-white/5 rounded-2xl py-5 pl-14 pr-6 text-white text-xs font-black tracking-widest outline-none focus:border-[#D4AF37]/30 transition-all placeholder:text-stone-800 resize-none" />
+                                        <textarea 
+                                            name="address"
+                                            value={formData.address}
+                                            onChange={handleInputChange}
+                                            rows={3} 
+                                            placeholder="COMPLETE SACRED ADDRESS FOR DELIVERY" 
+                                            required
+                                            className="w-full bg-[#040C1A] border border-white/5 rounded-2xl py-5 pl-14 pr-6 text-white text-xs font-black tracking-widest outline-none focus:border-[#D4AF37]/30 transition-all placeholder:text-stone-800 resize-none" 
+                                        />
                                     </div>
                                 </div>
                             </div>
