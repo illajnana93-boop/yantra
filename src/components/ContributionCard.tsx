@@ -1,10 +1,13 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContribution } from '../context/ContributionContext';
 import { useAuth } from '../context/AuthContext';
-import { supabase } from '../lib/supabase';
-import { FaLandmark, FaStar, FaCheckCircle, FaTruck, FaBoxOpen, FaScroll, FaSun, FaHeart, FaArchive, FaChevronDown, FaShoppingBag, FaPray } from 'react-icons/fa';
+import { 
+    FaLandmark, FaStar, FaCheckCircle, FaTruck, FaBoxOpen, 
+    FaScroll, FaSun, FaHeart, FaArchive, FaChevronDown, 
+    FaShoppingBag, FaPray 
+} from 'react-icons/fa';
 import { FaHandsPraying, FaGem } from 'react-icons/fa6';
 
 const offerings = [

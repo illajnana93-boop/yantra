@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useContribution } from '../context/ContributionContext';
-import { 
+import {
     FaShieldAlt, FaLock, FaCheckCircle, FaTruck, FaCreditCard, FaLockOpen, FaUniversity,
-    FaMobileAlt, FaShoppingBag, FaUser, FaPhoneAlt, FaMapMarkerAlt, FaScroll
+    FaMobileAlt, FaShoppingBag, FaUser, FaMapMarkerAlt, FaScroll
 } from 'react-icons/fa';
 import { SiRazorpay } from 'react-icons/si';
 import { useAuth } from '../context/AuthContext';
@@ -18,7 +18,7 @@ const Checkout: React.FC = () => {
     const { items, clearItems } = useContribution();
     const [isLoading, setIsLoading] = useState(false);
     const [showComingSoon, setShowComingSoon] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
+    const [showSuccess] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState<'cod' | 'online' | 'upi' | 'card' | 'netbanking' | 'razorpay'>('cod');
     
     // Devotee Information states
@@ -37,7 +37,7 @@ const Checkout: React.FC = () => {
         const fetchDevoteeDetails = async () => {
             if (user) {
                 try {
-                    const { data, error } = await supabase
+                    const { data } = await supabase
                         .from('temple_contributions')
                         .select('full_name, gotra, city')
                         .eq('user_id', user.id)
