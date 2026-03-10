@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState, useRef } from 'react';
+import ShyamYantra from './ShyamYantra';
 
 const Hero = () => {
     const [isMuted, setIsMuted] = useState(true);
@@ -47,11 +48,8 @@ const Hero = () => {
 
     return (
         <section className="min-h-[85vh] lg:h-[90vh] flex lg:items-center bg-[#081629] relative overflow-hidden pt-32 lg:pt-0">
-            {/* Ambient Lighting Background - Reduced intensity to make navbar stand out */}
-            <div className="absolute inset-0 bg-navy-gradient opacity-30"></div>
-
-            <div className="absolute top-[10%] right-[-5%] w-[80%] md:w-[50%] h-[50%] bg-[#D4AF37]/2 rounded-full blur-[100px] md:blur-[120px] pointer-events-none"></div>
-            <div className="absolute bottom-[10%] left-[-5%] w-[70%] md:w-[40%] h-[40%] bg-blue-900/5 rounded-full blur-[80px] md:blur-[100px] pointer-events-none"></div>
+            {/* Sacred Sri Shyam Yantra Background Animation */}
+            <ShyamYantra />
 
             <div className="container mx-auto px-4 md:px-8 lg:px-12 grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-10 items-center relative z-10 py-12 lg:pt-32 lg:pb-16">
                 {/* Left: Divine Content - Secondary focus */}

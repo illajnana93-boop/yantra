@@ -9,6 +9,7 @@ import {
     FaShoppingBag, FaPray 
 } from 'react-icons/fa';
 import { FaHandsPraying, FaGem } from 'react-icons/fa6';
+import FloatingEmbers from './FloatingEmbers';
 
 const offerings = [
     {
@@ -121,6 +122,9 @@ const ContributionCard = () => {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent" />
             <div className="absolute top-[10%] right-0 w-[30%] h-[50%] bg-[#D4AF37]/4 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-[10%] left-0 w-[30%] h-[50%] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none" />
+            
+            {/* Sacred Floating Embers Animation */}
+            <FloatingEmbers />
 
             <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-10">
 
