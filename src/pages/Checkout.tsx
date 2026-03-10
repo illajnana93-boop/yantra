@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContribution } from '../context/ContributionContext';
 import { 
     FaShieldAlt, FaLock, FaCheckCircle, FaTruck, FaCreditCard, FaLockOpen, FaUniversity,
-    FaMobileAlt, FaStar, FaShoppingBag, FaUser, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt
+    FaMobileAlt, FaShoppingBag, FaUser, FaPhoneAlt, FaMapMarkerAlt
 } from 'react-icons/fa';
 import { SiRazorpay } from 'react-icons/si';
 import Navbar from '../components/Navbar';
