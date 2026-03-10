@@ -1,7 +1,74 @@
-import { motion } from 'framer-motion';
-import { FaUser, FaMapMarkerAlt, FaOm } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaUser, FaMapMarkerAlt, FaOm, FaTimes } from 'react-icons/fa';
+import { FaHandsPraying } from 'react-icons/fa6';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useContribution } from '../context/ContributionContext';
+import { supabase } from '../lib/supabase';
+import { useNavigate } from 'react-router-dom';
 
 const TempleVision = () => {
+    const { user, openAuthModal } = useAuth();
+    const { addItem } = useContribution();
+    const navigate = useNavigate();
+
+    const [showModal, setShowModal] = useState(false);
+    const [formName, setFormName] = useState('');
+    const [gotra, setGotra] = useState('');
+    const [city, setCity] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        if (user) setFormName(user.name || '');
+    }, [user]);
+
+    const handleOpenModal = () => {
+        if (!user) {
+            openAuthModal();
+            return;
+        }
+        setShowModal(true);
+    };
+
+    const handleSubmit = async () => {
+        if (!user || !formName || !gotra || !city) return;
+        setIsSubmitting(true);
+
+        try {
+            // Default to 11g Yantra (id: 1) for this CTA
+            const offering = { id: 1, weight: '11 Grams Yantra', price: 2100, sqft: 1 };
+            
+            const { error } = await supabase.from('temple_contributions').insert({
+                user_id: user.id,
+                full_name: formName,
+                gotra: gotra,
+                city: city,
+                offering_id: offering.id,
+                offering_weight: offering.weight,
+                price: offering.price,
+                quantity: 1,
+                total_amount: offering.price,
+                sqft_contribution: offering.sqft
+            });
+
+            if (error) throw error;
+
+            addItem({ id: offering.id, weight: offering.weight, price: offering.price }, 1);
+            setShowModal(false);
+            
+            // Navigate to checkout after a brief moment
+            setTimeout(() => {
+                navigate('/checkout');
+            }, 500);
+
+        } catch (err) {
+            console.error("Contribution error:", err);
+            alert("Failed to save spiritual details. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <section className="bg-[#0b1d36] relative overflow-hidden py-24 md:py-32 border-t border-[#D4AF37]/20">
             {/* Ambient Spiritual Lighting */}
@@ -55,24 +122,39 @@ const TempleVision = () => {
                         <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[#D4AF37]/30 rounded-br-xl pointer-events-none"></div>
                     </motion.div>
 
-                    {/* RIGHT SIDE: Mission Text */}
+                    {/* RIGHT SIDE: Mission Pillars (Visual Refactor) */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1, delay: 0.2 }}
-                        className="flex flex-col space-y-8"
+                        className="flex flex-col space-y-12"
                     >
-                        <div className="space-y-6">
+                        <div className="space-y-4">
                             <h3 className="text-[#F5D76E] text-2xl md:text-3xl font-bold italic tracking-wide leading-snug">
                                 Establishing a Legacy of Devotion
                             </h3>
-                            <p className="text-stone-300 text-lg leading-relaxed italic font-light">
-                                Our sacred mission is to establish 100 temples over the next two decades, creating permanent sanctuaries of peace, protection, and divine connection for devotees worldwide.
-                            </p>
-                            <p className="text-stone-400 text-base leading-relaxed">
-                                Each temple serves as a beacon of Vedic wisdom and spiritual awakening, constructed with traditional precision and sacred activation.
-                            </p>
+                            <div className="w-16 h-[2px] bg-gold-gradient mb-8" />
+                        </div>
+
+                        {/* Bento-style Pillars */}
+                        <div className="grid grid-cols-1 gap-6">
+                            {[
+                                { title: "Sacred Mission", subtitle: "100 Temples in 20 Years", desc: "Creating a lasting legacy of spiritual sanctuaries." },
+                                { title: "Divine Purpose", subtitle: "Peace & Protection", desc: "Permanent spaces for divine connection and inner silence." },
+                                { title: "Vedic Awakening", subtitle: "Wisdom & Precision", desc: "Built with traditional science and sacred activation." }
+                            ].map((pillar, idx) => (
+                                <div key={idx} className="flex gap-5 group">
+                                    <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/20 group-hover:bg-[#D4AF37]/20 transition-colors flex-shrink-0">
+                                        <FaOm className="text-xl" />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-[#D4AF37] text-[10px] uppercase tracking-[0.3em] font-black">{pillar.title}</span>
+                                        <h4 className="text-white text-lg font-bold mb-1">{pillar.subtitle}</h4>
+                                        <p className="text-stone-400 text-sm leading-relaxed">{pillar.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
 
                         {/* Mandir Address Card */}
@@ -144,12 +226,91 @@ const TempleVision = () => {
                     <motion.button
                         whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(212,175,55,0.4)" }}
                         whileTap={{ scale: 0.98 }}
+                        onClick={handleOpenModal}
                         className="bg-gold-gradient text-[#0b1d36] px-12 py-5 rounded-[30px] text-sm font-black uppercase tracking-[0.2em] shadow-2xl transition-all duration-500"
                     >
-                        Contribute to Temple Construction
+                        Contribute to Temple & Take Yantra Home
                     </motion.button>
                 </motion.div>
             </div>
+
+            {/* Devotee Details Modal */}
+            <AnimatePresence>
+                {showModal && (
+                    <div className="fixed inset-0 z-[10005] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setShowModal(false)}
+                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 30 }}
+                            className="relative w-full max-w-lg bg-[#f9f5ec] rounded-[3rem] p-10 md:p-14 overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8)]"
+                        >
+                            <div className="absolute top-0 left-0 w-full h-2 bg-gold-gradient" />
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className="absolute top-8 right-8 text-stone-400 hover:text-[#D4AF37] transition-colors"
+                            >
+                                <FaTimes size={20} />
+                            </button>
+
+                            <div className="text-center mb-10">
+                                <FaHandsPraying className="text-[#D4AF37] text-4xl mx-auto mb-4 animate-pulse" />
+                                <h3 className="text-[#0A1F3C] text-2xl font-serif font-black uppercase tracking-tight">Sacred Seva & Yantra</h3>
+                                <p className="text-stone-500 text-[10px] uppercase tracking-[0.3em] font-black mt-2">Bring Baba home with your contribution</p>
+                            </div>
+
+                            <div className="space-y-6">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] uppercase tracking-widest font-black text-[#8B7355] ml-1">Full Name</label>
+                                    <input
+                                        type="text"
+                                        value={formName}
+                                        onChange={(e) => setFormName(e.target.value)}
+                                        placeholder="Full Name as in Records"
+                                        className="w-full bg-white border border-[#D4AF37]/20 rounded-2xl py-4 px-6 text-[#0A1F3C] outline-none focus:border-[#D4AF37] transition-all"
+                                    />
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] uppercase tracking-widest font-black text-[#8B7355] ml-1">Gotra</label>
+                                        <input
+                                            type="text"
+                                            value={gotra}
+                                            onChange={(e) => setGotra(e.target.value)}
+                                            placeholder="Ex: Bhardwaj"
+                                            className="w-full bg-white border border-[#D4AF37]/20 rounded-2xl py-4 px-6 text-[#0A1F3C] outline-none focus:border-[#D4AF37] transition-all"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] uppercase tracking-widest font-black text-[#8B7355] ml-1">City</label>
+                                        <input
+                                            type="text"
+                                            value={city}
+                                            onChange={(e) => setCity(e.target.value)}
+                                            placeholder="Ex: Jaipur"
+                                            className="w-full bg-white border border-[#D4AF37]/20 rounded-2xl py-4 px-6 text-[#0A1F3C] outline-none focus:border-[#D4AF37] transition-all"
+                                        />
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={handleSubmit}
+                                    disabled={!formName || !gotra || !city || isSubmitting}
+                                    className="btn-gold-royal w-full py-5 rounded-2xl font-black text-sm tracking-[0.2em] shadow-xl disabled:opacity-50 mt-4 flex justify-center items-center h-16"
+                                >
+                                    {isSubmitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : "OFFER SEVA & GET YANTRA"}
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
 
             {/* Bottom Decoration */}
             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent"></div>

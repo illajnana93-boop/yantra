@@ -12,6 +12,7 @@ interface ContributionContextType {
     items: ContributionItem[];
     totalCount: number;
     addItem: (item: Omit<ContributionItem, 'qty'>, qty: number) => void;
+    clearItems: () => void;
     showCart: boolean;
     setShowCart: (v: boolean) => void;
 }
@@ -31,11 +32,13 @@ export const ContributionProvider = ({ children }: { children: ReactNode }) => {
             return [...prev, { ...item, qty }];
         });
     };
+    
+    const clearItems = () => setItems([]);
 
     const totalCount = items.reduce((sum, i) => sum + i.qty, 0);
 
     return (
-        <ContributionContext.Provider value={{ items, totalCount, addItem, showCart, setShowCart }}>
+        <ContributionContext.Provider value={{ items, totalCount, addItem, clearItems, showCart, setShowCart }}>
             {children}
         </ContributionContext.Provider>
     );

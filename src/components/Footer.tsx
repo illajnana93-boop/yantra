@@ -1,6 +1,40 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { supabase } from '../lib/supabase';
+import { FaCheckCircle } from 'react-icons/fa';
+import { FaHandsPraying } from 'react-icons/fa6';
 
 const Footer = () => {
+    const [email, setEmail] = useState('');
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleJoinSeva = async () => {
+        if (!email || !email.includes('@')) {
+            setStatus('error');
+            return;
+        }
+
+        setStatus('loading');
+        try {
+            const { error } = await supabase
+                .from('newsletter_subscriptions')
+                .insert({ email });
+
+            if (error && error.code !== '23505') throw error;
+            
+            setStatus('success');
+            setEmail('');
+
+            // Automatically revert to original state after 8 seconds
+            setTimeout(() => {
+                setStatus('idle');
+            }, 8000);
+        } catch (err) {
+            console.error('Seva signup failed:', err);
+            setStatus('error');
+            setTimeout(() => setStatus('idle'), 3000);
+        }
+    };
     return (
         <footer id="contact" className="bg-[#081629] text-[#F8F5F0] pt-20 pb-12 border-t border-[#D4AF37]/20 relative overflow-hidden">
             {/* Animated Ambient Gold Halo */}
@@ -78,19 +112,67 @@ const Footer = () => {
                     >
                         <h4 className="text-gold-gradient uppercase text-[11px] font-black tracking-[0.4em] mb-10">Divine Circle</h4>
                         <p className="text-[#F8F5F0]/50 text-sm mb-10 leading-relaxed italic font-light">Stay enlightened with sacred batch updates and auspicious ritual timings.</p>
-                        <div className="flex flex-col gap-4">
-                            <input
-                                type="email"
-                                placeholder="Sacred Email Address"
-                                className="bg-[#0A1F3C]/50 border border-white/10 rounded-full px-8 py-5 text-[12px] focus:border-[#D4AF37]/50 outline-none text-[#F8F5F0] placeholder:text-[#F8F5F0]/20 transition-all focus:bg-[#0A1F3C] interactive"
-                            />
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className="btn-gold-royal py-5 text-[10px] font-black tracking-[0.3em] rounded-full interactive"
-                            >
-                                Join the Seva
-                            </motion.button>
+                        <div className="flex flex-col gap-4 relative">
+                            <AnimatePresence mode="wait">
+                                {status === 'success' ? (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-2xl p-6 text-center"
+                                    >
+                                        <FaCheckCircle className="text-[#F5D76E] text-2xl mx-auto mb-3" />
+                                        <h5 className="text-[#F5D76E] text-xs font-black uppercase tracking-[0.2em] mb-2">Sacred Entry Confirmed</h5>
+                                        <p className="text-[#F8F5F0]/70 text-[11px] italic leading-relaxed">
+                                            You are now part of our inner circle. You will receive exclusive updates on special rituals and divine timings.
+                                        </p>
+                                        <button 
+                                            onClick={() => setStatus('idle')}
+                                            className="mt-4 text-[#D4AF37] text-[9px] uppercase font-bold tracking-widest hover:text-white transition-colors"
+                                        >
+                                            Add another email
+                                        </button>
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        className="flex flex-col gap-4"
+                                    >
+                                        <div className="relative">
+                                            <input
+                                                type="email"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                placeholder="Sacred Email Address"
+                                                disabled={status === 'loading'}
+                                                className={`w-full bg-[#0A1F3C]/50 border rounded-full px-8 py-5 text-[12px] focus:border-[#D4AF37]/50 outline-none text-[#F8F5F0] placeholder:text-[#F8F5F0]/20 transition-all focus:bg-[#0A1F3C] interactive ${
+                                                    status === 'error' ? 'border-red-500/50' : 'border-white/10'
+                                                }`}
+                                            />
+                                            {status === 'error' && (
+                                                <p className="absolute -bottom-6 left-6 text-red-500 text-[9px] font-bold uppercase tracking-widest">Invalid Email</p>
+                                            )}
+                                        </div>
+                                        <motion.button
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            onClick={handleJoinSeva}
+                                            disabled={status === 'loading'}
+                                            className="btn-gold-royal py-5 text-[10px] font-black tracking-[0.3em] rounded-full interactive flex items-center justify-center gap-2"
+                                        >
+                                            {status === 'loading' ? (
+                                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                            ) : (
+                                                <>
+                                                    <FaHandsPraying className="text-sm" />
+                                                    JOIN THE SEVA
+                                                </>
+                                            )}
+                                        </motion.button>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </motion.div>
                 </div>

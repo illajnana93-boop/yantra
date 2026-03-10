@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getSpiritualGuidance, generateKundli, getUserKundli, getTodayPanchang, getExtendedHoroscope } from '../services/api';
 import type { GuidanceResponse, ExtendedHoroscopeResponse } from '../services/api';
-import { FaHashtag, FaPalette, FaRegClock, FaRegSmile, FaMoon, FaSun, FaRedoAlt, FaArrowLeft, FaCalendarAlt, FaHistory, FaMapMarkerAlt, FaLocationArrow, FaCheck, FaTimes, FaStar, FaCaretUp, FaScroll, FaExclamationTriangle } from 'react-icons/fa';
+import { FaHashtag, FaPalette, FaRegClock, FaRegSmile, FaMoon, FaSun, FaRedoAlt, FaArrowLeft, FaCalendarAlt, FaHistory, FaMapMarkerAlt, FaLocationArrow, FaCheck, FaTimes, FaStar, FaCaretUp, FaScroll, FaExclamationTriangle, FaOm } from 'react-icons/fa';
 import { FaHandsPraying, FaStarOfLife } from 'react-icons/fa6';
 import { useAuth } from '../context/AuthContext';
 
@@ -367,9 +367,22 @@ const DailyGuidance = () => {
                                     <img src="/om.png" alt="Om" className="w-16 h-16 object-contain filter drop-shadow-[0_0_20px_rgba(212,175,55,0.4)] group-hover:scale-110 transition-transform duration-500" />
                                 </div>
                                 <h3 className="text-2xl md:text-3xl text-white mb-4 tracking-tight group-hover:text-[#D4AF37] transition-colors line-clamp-1">Personalized Path</h3>
-                                <p className="text-stone-400 text-sm md:text-base leading-relaxed mb-8 max-w-md mx-auto">
-                                    Create a permanent profile with your birth details to unlock your cosmic legacy and receive daily personalized blessings.
+                                <p className="text-stone-300 text-sm md:text-base leading-relaxed mb-6 max-w-md mx-auto italic">
+                                    Unlock your cosmic legacy through birth-chart analysis.
                                 </p>
+                                
+                                <div className="flex flex-wrap justify-center gap-4 mb-10">
+                                    {[
+                                        { icon: <FaOm className="text-sm" />, text: "Permanent Profile" },
+                                        { icon: <FaStar className="text-sm" />, text: "Daily Blessings" },
+                                        { icon: <FaScroll className="text-sm" />, text: "Kundli Analysis" }
+                                    ].map((benefit, i) => (
+                                        <div key={i} className="flex items-center gap-3 px-6 py-3 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 shadow-[0_0_15px_rgba(212,175,55,0.1)]">
+                                            <span className="text-[#D4AF37]">{benefit.icon}</span>
+                                            <span className="text-white text-[11px] md:text-[12px] uppercase tracking-[0.2em] font-black">{benefit.text}</span>
+                                        </div>
+                                    ))}
+                                </div>
                                 <span className="btn-gold-royal px-12 py-4 rounded-full text-xs font-black tracking-[0.2em] shadow-2xl whitespace-nowrap">GET MY KUNDLI</span>
                             </button>
                         </motion.div>
@@ -835,16 +848,16 @@ const DailyGuidance = () => {
                                         >
                                             {/* Deep Cosmic Background */}
                                             <div className="absolute inset-0 pointer-events-none z-0">
-                                                {/* Nebula Glow */}
-                                                <div className="absolute top-[20%] left-[10%] w-[600px] h-[600px] bg-[#00E5FF]/5 rounded-full blur-[120px] mix-blend-screen opacity-50 animate-pulse"></div>
-                                                <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[100px] mix-blend-screen opacity-40"></div>
+                                                {/* Deep Overlays for Blending */}
+                                                <div className="absolute inset-0 bg-gradient-to-b from-[#0A1F3C] via-transparent to-[#0A1F3C]"></div>
+                                                <div className="absolute inset-0 bg-[#0A1F3C]/40 backdrop-blur-[2px]"></div>
 
-                                                {/* Slow Rotating Orbit Lines */}
-                                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] md:w-[80vw] md:h-[80vw] border border-white/5 rounded-full animate-[spin_40s_linear_infinite] opacity-30"></div>
-                                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] md:w-[60vw] md:h-[60vw] border border-white/5 rounded-full animate-[spin_30s_linear_infinite_reverse] opacity-20"></div>
+                                                {/* Original Nebula Glows for Depth */}
+                                                <div className="absolute top-[20%] left-[10%] w-[600px] h-[600px] bg-[#00E5FF]/10 rounded-full blur-[120px] mix-blend-screen opacity-50 animate-pulse"></div>
+                                                <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] bg-[#D4AF37]/10 rounded-full blur-[100px] mix-blend-screen opacity-40"></div>
 
-                                                {/* Subtle Star Particles */}
-                                                <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-noise"></div>
+                                                {/* Subtle Star Particles Overlay */}
+                                                <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay bg-noise"></div>
                                             </div>
 
                                             <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8">

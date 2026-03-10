@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from 'react';
 
 const GurujiHighlight = () => {
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isMuted, setIsMuted] = useState(false);
     const [question, setQuestion] = useState("");
     const [isThinking, setIsThinking] = useState(false);
     const [gurujiAnswer, setGurujiAnswer] = useState("");
@@ -12,16 +11,15 @@ const GurujiHighlight = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
-    // Sync audio muted state with isMuted state
+    // Sync audio muted state with default (unmuted)
     useEffect(() => {
         if (audioRef.current) {
-            audioRef.current.muted = isMuted;
+            audioRef.current.muted = false;
         }
-    }, [isMuted]);
+    }, []);
 
-    const handleAskGuruji = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!question.trim() || isThinking) return;
+    const askGuruji = async (query: string) => {
+        if (!query.trim() || isThinking) return;
 
         // Reset and stop everything
         setAudioPlaybackBlocked(false);
@@ -48,7 +46,7 @@ const GurujiHighlight = () => {
             const response = await fetch(`${API_BASE}/ask-guruji`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ question }),
+                body: JSON.stringify({ question: query }),
             });
 
             if (response.ok) {
@@ -99,20 +97,15 @@ const GurujiHighlight = () => {
             setGurujiAnswer("बेटा, संपर्क में कुछ बाधा है। जय श्री श्याम।");
         } finally {
             setIsThinking(false);
-            setQuestion("");
         }
     };
 
-    const handleStartDarshan = () => {
-        if (videoRef.current) {
-            setIsPlaying(true);
-            videoRef.current.play().catch(() => { });
-        }
+    const handleAskGuruji = (e: React.FormEvent) => {
+        e.preventDefault();
+        askGuruji(question);
+        setQuestion("");
     };
 
-    const toggleMute = () => {
-        setIsMuted(!isMuted);
-    };
 
     return (
         <section id="guruji-darshan" className="bg-[#0A1F3C] relative overflow-hidden py-20 md:py-24 border-t border-[#D4AF37]/20">
@@ -141,17 +134,6 @@ const GurujiHighlight = () => {
                         />
 
                         {/* Overlays */}
-                        {!isPlaying && !isThinking && (
-                            <div
-                                className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer"
-                                onClick={handleStartDarshan}
-                            >
-                                <div className="w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center text-white shadow-xl transform hover:scale-110 transition-transform">
-                                    <svg className="w-8 h-8 fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                                </div>
-                            </div>
-                        )}
-
                         {isThinking && (
                             <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-[#D4AF37]">
                                 <div className="w-10 h-10 border-4 border-[#D4AF37] border-t-transparent rounded-full animate-spin mb-3"></div>
@@ -175,55 +157,6 @@ const GurujiHighlight = () => {
                                     🔊 Tap to Hear Guruji's Voice
                                 </motion.div>
                             </div>
-                        )}
-
-                        {/* Video Controls & Audio Debug */}
-                        <div className="absolute top-4 left-4 z-40 flex flex-col gap-2">
-                            {isPlaying && (
-                                <div className="bg-black/60 backdrop-blur-md p-3 rounded-2xl border border-[#D4AF37]/30 flex flex-col gap-2 shadow-2xl">
-                                    <div className="flex items-center gap-3">
-                                        <button
-                                            onClick={toggleMute}
-                                            className="text-[#D4AF37] hover:scale-110 transition-transform"
-                                        >
-                                            {isMuted ? (
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>
-                                            ) : (
-                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
-                                            )}
-                                        </button>
-                                        <input
-                                            type="range"
-                                            min="0"
-                                            max="1"
-                                            step="0.01"
-                                            value={isMuted ? 0 : 1}
-                                            onChange={(e) => {
-                                                const v = parseFloat(e.target.value);
-                                                if (audioRef.current) audioRef.current.volume = v;
-                                                if (v > 0) setIsMuted(false);
-                                                else setIsMuted(true);
-                                            }}
-                                            className="w-20 h-1 accent-[#D4AF37] bg-[#D4AF37]/20 rounded-full cursor-pointer"
-                                        />
-                                    </div>
-                                    <span className="text-[10px] text-[#D4AF37]/60 uppercase tracking-widest text-center">Spiritual Volume</span>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Mute Toggle (Original Position) */}
-                        {isPlaying && (
-                            <button
-                                onClick={toggleMute}
-                                className="absolute bottom-6 right-6 z-30 bg-black/40 hover:bg-black/60 p-3 rounded-full text-white backdrop-blur-sm transition-all"
-                            >
-                                {isMuted ? (
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>
-                                ) : (
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
-                                )}
-                            </button>
                         )}
                     </div>
                     {/* Audio Status Alert */}
@@ -293,7 +226,7 @@ const GurujiHighlight = () => {
                         {['Benefits of Yantra', 'Correct Placement', 'Spiritual Story'].map((tag) => (
                             <button
                                 key={tag}
-                                onClick={() => setQuestion(tag)}
+                                onClick={() => askGuruji(tag)}
                                 className="text-xs text-[#D4AF37]/60 border border-[#D4AF37]/20 px-4 py-2 rounded-full hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/40 transition-all"
                             >
                                 {tag}

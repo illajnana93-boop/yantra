@@ -147,31 +147,36 @@ const Navbar = () => {
 
                 {/* User Menu (Only if logged in) */}
                 {user && (
-                    <div className="relative">
-                        <button
-                            onClick={() => setShowUserMenu(!showUserMenu)}
-                            className="w-10 h-10 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 flex items-center justify-center text-[#F5D76E] hover:bg-[#D4AF37]/20 transition-all interactive"
-                        >
-                            <FaUser className="w-4 h-4" />
-                        </button>
-                        {showUserMenu && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="absolute top-12 right-0 w-48 bg-[#040515] border border-[#D4AF37]/30 rounded-xl py-2 shadow-2xl z-[10002]"
+                    <div className="relative flex items-center gap-3">
+                        <span className="text-[#F5D76E] text-[11px] font-black uppercase tracking-[0.1em] hidden xl:block">
+                            {user.name}
+                        </span>
+                        <div className="relative">
+                            <button
+                                onClick={() => setShowUserMenu(!showUserMenu)}
+                                className="w-10 h-10 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 flex items-center justify-center text-[#F5D76E] hover:bg-[#D4AF37]/20 transition-all interactive"
                             >
-                                <div className="px-4 py-2 border-b border-white/10 mb-1">
-                                    <p className="text-[#F5D76E] text-[10px] uppercase tracking-widest font-bold">Devotee</p>
-                                    <p className="text-white text-xs truncate font-medium">{user.email}</p>
-                                </div>
-                                <button
-                                    onClick={() => { signOut(); setShowUserMenu(false); }}
-                                    className="w-full text-left px-4 py-2 text-stone-300 hover:text-white hover:bg-white/5 text-xs transition-all"
+                                <FaUser className="w-4 h-4" />
+                            </button>
+                            {showUserMenu && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="absolute top-12 right-0 w-48 bg-[#040515] border border-[#D4AF37]/30 rounded-xl py-2 shadow-2xl z-[10002]"
                                 >
-                                    Sign Out
-                                </button>
-                            </motion.div>
-                        )}
+                                    <div className="px-4 py-2 border-b border-white/10 mb-1">
+                                        <p className="text-[#F5D76E] text-[10px] uppercase tracking-widest font-bold mb-0.5">{user.name}</p>
+                                        <p className="text-stone-400 text-[10px] truncate font-medium">{user.email}</p>
+                                    </div>
+                                    <button
+                                        onClick={() => { signOut(); setShowUserMenu(false); }}
+                                        className="w-full text-left px-4 py-2 text-stone-300 hover:text-white hover:bg-white/5 text-xs transition-all"
+                                    >
+                                        Sign Out
+                                    </button>
+                                </motion.div>
+                            )}
+                        </div>
                     </div>
                 )}
             </div>
@@ -197,8 +202,8 @@ const Navbar = () => {
                                 className="absolute top-12 right-0 w-44 bg-[#040515] border border-[#D4AF37]/30 rounded-xl py-2 shadow-2xl z-[10002]"
                             >
                                 <div className="px-4 py-2 border-b border-white/10 mb-1 text-center">
-                                    <p className="text-[#F5D76E] text-[10px] uppercase tracking-widest font-bold">Devotee</p>
-                                    <p className="text-white text-[11px] truncate font-medium">{user.email}</p>
+                                    <p className="text-[#F5D76E] text-[10px] uppercase tracking-widest font-bold mb-0.5">{user.name}</p>
+                                    <p className="text-stone-400 text-[10px] truncate font-medium">{user.email}</p>
                                 </div>
                                 <button
                                     onClick={() => { signOut(); setShowUserMenu(false); }}
